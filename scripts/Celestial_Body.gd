@@ -1,9 +1,16 @@
 extends RigidBody2D
 
+onready var grav_body = find_node("Grav_Body")
+
+var acceleration = Vector2(0, 0)
+
 func _ready():
-	radius = find_node("CollisionShape2D").get_shape().get_radius();
+	grav_body.radius = find_node("CollisionShape2D").get_shape().get_radius();
 	#scale_sprite(radius)
 	set_process(true)
+	
+func get_grav():
+	return grav_body
 
 func set_radius(radius):
 	var shape = CircleShape2D.new()
@@ -22,13 +29,10 @@ func scale_sprite(radius):
 	scale = Vector2(scale, scale)
 	
 	find_node("Sprite").set_scale(scale)
-	
-func _process(delta):
-	gravity_process(delta)
-	
+
 func _draw():
 	var center = Vector2(0,0)
-	var radius = gravity_range
+	var radius = grav_body.gravity_range
 	var angle_from = 0
 	var angle_to = 359
 	var color = Color(1.0, 0.0, 0.0)
@@ -46,3 +50,25 @@ func draw_dotted_circle_arc( center, radius, angle_from, angle_to, color ):
 	for indexPoint in range(0, nb_points, 2):
 		draw_line(points_arc[indexPoint], points_arc[indexPoint+1], color)
 
+func _process(delta):
+	if !grav_body.stat:
+		set_linear_velocity(get_linear_velocity() + (acceleration * delta))
+		#set_pos(get_pos() + velocity * delta)
+	acceleration = Vector2(0, 0)
+	update()
+
+func accelerate(vec):
+	acceleration += vec
+	
+func clone():
+	var scene = load("res://scenes/Celestial_Body.scn")
+	var node = scene.instance()
+	node.grav_body = grav_body
+	node.grav_body.stat = grav_body.stat
+	node.grav_body.type = grav_body.type
+	node.grav_body.tiny = grav_body.tiny
+	node.set_linear_velocity(get_linear_velocity())
+	node.accelerate(acceleration)
+	node.set_pos(get_pos())
+	
+	return node

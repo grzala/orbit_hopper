@@ -6,14 +6,17 @@ var aiming
 var pos1
 var pos2
 
-const MAX_POWER = 5000
+const MAX_POWER = 8000
 const MAX_DIST = 280
 
 var probe = preload("res://scenes/Probe.scn")
+onready var ship = get_node("/root/orbit_hopper/G_Objects_Field/Ship")
 var aim_line
 
 #mouse or touchscreen?
 var mobile 
+
+var old_probe = null
 
 func _ready():
 	set_process_input(true)
@@ -39,19 +42,32 @@ func aim():
 		return
 	
 	#slow motion, implement this in level scipt
-	OS.set_time_scale(0.2)
+	#OS.set_time_scale(0.2)
+	OS.set_time_scale(0.00001)
 	
 	if !mobile: #mobile pos2 is updated by screen dragged
 		pos2 = get_viewport().get_mouse_pos()
 		
 	aim_line.end = pos2
+	
+	#find power and angle
+	var dist = pos1.distance_to(pos2)
+	dist = min(dist, MAX_DIST)
+	#dist / MAX_DIST = power / MAX_POWER
+	var power = (dist * MAX_POWER) / MAX_DIST
+	var angle = atan2(pos2.y - pos1.y, pos2.x - pos1.x)
+	var vec = polar(angle, power)
+	vec = -vec
+	
+	aim_line.vec = vec
+	aim_line.ship_pos = ship.get_pos()
+	aim_line.ship_vel = ship.get_linear_velocity()
 
 func release():
 	#do nothing
 	if pos1 == null or pos2 == null: return
 	
 	OS.set_time_scale(1)
-	var ship = get_node("/root/orbit_hopper/G_Objects_Field/Ship")
 	
 	#find power and angle
 	var dist = pos1.distance_to(pos2)
@@ -68,16 +84,25 @@ func release():
 	probe.set_linear_velocity(ship.get_linear_velocity())
 	probe.set_pos(ship.get_pos())
 	
-	get_node("/root/orbit_hopper/G_Objects_Field").add_child(probe)
+	var field = get_node("/root/orbit_hopper/G_Objects_Field")
+	if old_probe != null: field.remove_child(old_probe)
+	field.add_child(probe)
+	old_probe = probe
 	
+	clean_aim()
+
+func clean_aim():
 	#reset aiming
 	pos1 = null
 	pos2 = null
 	aim_line.start = null
 	aim_line.end = null 
+	aim_line.ship_pos = null
+	aim_line.ship_vel = null
+	aim_line.vec = null
 	
 func _input(event):
-	#desktop
+	#mobile
 	if event.type == InputEvent.SCREEN_DRAG:
 		mobile = true
 		if evt_in_bounds(event):
@@ -87,7 +112,7 @@ func _input(event):
 			pos2 = event.pos
 			aim_line.start = pos1
 	
-	#mobile
+	#desktop
 	elif event.is_action_pressed("ui_touch"):
 		mobile = false
 		if evt_in_bounds(event):
@@ -95,7 +120,11 @@ func _input(event):
 			if pos1 == null:
 				pos1 = event.pos
 			aim_line.start = pos1
-	
+	elif event.is_action_pressed("ui_cancel_shot"):
+		OS.set_time_scale(1)
+		aiming = false
+		clean_aim()
+		
 	#released
 	elif event.is_action_released("ui_touch"):
 		release()

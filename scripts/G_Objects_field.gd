@@ -8,12 +8,10 @@ func _ready():
 	set_process(true)
 	
 	bodies = get_children()
-	#bodies[0].accelerate(Vector2(400, 0))
-	#bodies[0].accelerate(Vector2(300, 0))
-	#bodies[0].set_radius(40)
-	bodies[0].set_static(true)
-	#bodies[2].set_static(true)
-	bodies[1].accelerate(Vector2(0, 200))
+	
+	bodies[0].get_grav().set_static(true)
+	bodies[1].accelerate(Vector2(0, 500))
+	bodies[2].get_grav().set_gmass(100)
 	
 func _process(delta):
 	process_gravity()
@@ -43,18 +41,18 @@ func get_impulse(body1, body2):
 	
 	var pos1 = body1.get_pos()
 	var pos2 = body2.get_pos()
-	var m1 = body1.get_gmass()
-	var m2 = body2.get_gmass()
+	var m1 = body1.get_grav().get_gmass()
+	var m2 = body2.get_grav().get_gmass()
 	
 	var angle = atan2(pos2.y - pos1.y, pos2.x - pos1.x)
 	var dist = pos1.distance_to(pos2)
 	var gravity = G * (m1*m2/dist*dist)
 	var vec = polar(angle, gravity)
-	var rr = body1.get_radius() + body2.get_radius()
+	var rr = body1.get_grav().get_radius() + body2.get_grav().get_radius()
 	
 	if dist >= rr:
-		if !body1.is_static() and !body2.is_tiny() and dist <= body2.get_range(): impulse1 = vec/m1
-		if !body2.is_static() and !body1.is_tiny() and dist <= body1.get_range(): impulse2 = -vec/m2
+		if !body1.get_grav().is_static() and !body2.get_grav().is_tiny() and dist <= body2.get_grav().get_range(): impulse1 = vec/m1
+		if !body2.get_grav().is_static() and !body1.get_grav().is_tiny() and dist <= body1.get_grav().get_range(): impulse2 = -vec/m2
 	
 	return [impulse1, impulse2]
 	
