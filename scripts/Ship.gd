@@ -7,6 +7,7 @@ var acceleration = Vector2(0, 0)
 func _ready():
 	grav_body.tiny = true
 	grav_body.type = "ship"
+	grav_body.g_mass = 20
 	set_process(true)
 
 func get_grav():

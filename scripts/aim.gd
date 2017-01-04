@@ -13,7 +13,7 @@ var grav_field
 var bodies
 
 var deltas = Array()
-var range_delta = 6
+var range_delta = 10
 var d = 0
 
 var last_scale = 0
@@ -106,8 +106,8 @@ func simulate(bodies):
 		#velocity update pos
 		for j in range(bodies.size()):
 			var body = bodies[j]
+			if !body.get_grav().is_static(): body._process(0)
 			if !body.get_grav().is_static(): body.set_pos(body.get_pos() + (body.get_linear_velocity() * dd))
-				
 				
 		
 		ship_pos_array.push_back(bodies[0].get_pos())

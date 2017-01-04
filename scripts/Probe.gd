@@ -3,10 +3,12 @@ extends RigidBody2D
 onready var grav_body = find_node("Grav_Body")
 
 var acceleration = Vector2(0, 0)
+const friction = 0.000
 
 func _ready():
 	grav_body.tiny = true
 	grav_body.type = "probe"
+	grav_body.g_mass = 10
 	set_process(true)
 
 func get_grav():
@@ -15,12 +17,16 @@ func get_grav():
 func _process(delta):
 	if !grav_body.stat:
 		set_linear_velocity(get_linear_velocity() + (acceleration * delta))
+		set_linear_velocity(get_linear_velocity()+ (-get_linear_velocity() * friction))
 		#set_pos(get_pos() + velocity * delta)
 	acceleration = Vector2(0, 0)
 	update()
 
 func accelerate(vec):
 	acceleration += vec
+	
+func slow_down():
+	set_linear_velocity(get_linear_velocity() - (get_linear_velocity() * 0.2))
 	
 func clone():
 	var scene = load("res://scenes/Celestial_Body.scn")

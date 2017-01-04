@@ -54,7 +54,7 @@ func aim():
 	var dist = pos1.distance_to(pos2)
 	dist = min(dist, MAX_DIST)
 	#dist / MAX_DIST = power / MAX_POWER
-	var power = (dist * MAX_POWER) / MAX_DIST
+	var power = ((dist * MAX_POWER) / MAX_DIST)
 	var angle = atan2(pos2.y - pos1.y, pos2.x - pos1.x)
 	var vec = polar(angle, power)
 	vec = -vec
@@ -124,6 +124,13 @@ func _input(event):
 		OS.set_time_scale(1)
 		aiming = false
 		clean_aim()
+		
+	
+	if event.is_action_pressed("ui_select"):
+		var probe = get_node("/root/orbit_hopper/G_Objects_Field/Probe")\
+		
+		if probe != null:
+			probe.slow_down()
 		
 	#released
 	elif event.is_action_released("ui_touch"):

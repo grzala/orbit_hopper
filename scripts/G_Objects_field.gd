@@ -9,9 +9,11 @@ func _ready():
 	
 	bodies = get_children()
 	
-	bodies[0].get_grav().set_static(true)
-	bodies[1].accelerate(Vector2(0, 500))
-	bodies[2].get_grav().set_gmass(100)
+	#bodies[0].get_grav().set_static(true)
+	bodies[1].get_grav().set_static(true)
+	bodies[2].get_grav().set_static(true)
+	bodies[0].accelerate(Vector2(0, 500))
+	#bodies[2].get_grav().set_gmass(80)
 	
 func _process(delta):
 	process_gravity()
@@ -46,7 +48,16 @@ func get_impulse(body1, body2):
 	
 	var angle = atan2(pos2.y - pos1.y, pos2.x - pos1.x)
 	var dist = pos1.distance_to(pos2)
-	var gravity = G * (m1*m2/dist*dist)
+	
+	var mm1 = 0
+	var mm2 = 0
+	if body1.get_grav().is_tiny(): mm1 = m1 
+	else : mm1 = m2
+	if body2.get_grav().is_tiny(): mm2 = m2 
+	else : mm2 = m1
+	
+	var gravity = G * (mm1*mm2/dist*dist)
+	
 	var vec = polar(angle, gravity)
 	var rr = body1.get_grav().get_radius() + body2.get_grav().get_radius()
 	

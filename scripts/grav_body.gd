@@ -1,12 +1,12 @@
 const MAXINT = 2147483647
 
-var g_mass = 50
+var g_mass = 80
 var acceleration = Vector2(0, 0)
 var stat = false
 var tiny = false
 var type = "celestial_body"
 
-var gravity_range = 150
+var gravity_range = 250
 
 export var radius = 20.0
 
