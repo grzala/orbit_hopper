@@ -7,6 +7,7 @@ var acceleration = Vector2(0, 0)
 func _ready():
 	grav_body.radius = find_node("CollisionShape2D").get_shape().get_radius();
 	#scale_sprite(radius)
+	set_radius(15)
 	set_process(true)
 	
 func get_grav():
