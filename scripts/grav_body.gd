@@ -1,6 +1,6 @@
 const MAXINT = 2147483647
 
-var g_mass = 80
+var g_mass = 300000
 var acceleration = Vector2(0, 0)
 var stat = false
 var tiny = false
@@ -22,6 +22,8 @@ func set_static(boolean):
 
 func set_tiny(boolean):
 	tiny = boolean
+	if boolean == true:
+		set_gmass(0)
 
 func get_radius():
 	return radius
@@ -34,5 +36,20 @@ func set_gmass(m):
 
 func is_tiny():
 	return tiny
-
 	
+func get_circular_orbit_velocity(G, body1, body2):
+	var vel
+	var m1 = body1.get_grav().get_gmass()
+	var m2 = body2.get_grav().get_gmass()
+	
+	if body1.get_grav().is_tiny(): m1 = 0
+	if body2.get_grav().is_tiny(): m2 = 0
+	
+	var masses = m1 + m2
+	var dist = body1.get_pos().distance_to(body2.get_pos())
+	vel = G * masses
+	vel /= dist
+	
+	vel = sqrt(vel)
+	
+	return vel 

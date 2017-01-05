@@ -50,21 +50,28 @@ func get_impulse(body1, body2):
 	var angle = atan2(pos2.y - pos1.y, pos2.x - pos1.x)
 	var dist = pos1.distance_to(pos2)
 	
-	var mm1 = 0
-	var mm2 = 0
-	if body1.get_grav().is_tiny(): mm1 = m1 
-	else : mm1 = m2
-	if body2.get_grav().is_tiny(): mm2 = m2 
-	else : mm2 = m1
+	var mm1 = m1
+	var mm2 = m2
 	
-	var gravity = G * (mm1*mm2/dist*dist)
+	#deprecated, left in case of errors
+	#if body1.get_grav().is_tiny(): mm1 = m1 
+	#else : mm1 = m2
+	#if body2.get_grav().is_tiny(): mm2 = m2 
+	#else : mm2 = m1
+	
+	if body1.get_grav().is_tiny() or m1 == 0:
+		mm1 = 1
+	if body2.get_grav().is_tiny() or m2 == 0:
+		mm2 = 1
+	
+	var gravity = G * ((mm1*mm2) / (dist*dist))
 	
 	var vec = polar(angle, gravity)
 	var rr = body1.get_grav().get_radius() + body2.get_grav().get_radius()
 	
 	if dist >= rr:
-		if !body1.get_grav().is_static() and !body2.get_grav().is_tiny() and dist <= body2.get_grav().get_range(): impulse1 = vec/m1
-		if !body2.get_grav().is_static() and !body1.get_grav().is_tiny() and dist <= body1.get_grav().get_range(): impulse2 = -vec/m2
+		if !body1.get_grav().is_static() and !body2.get_grav().is_tiny() and dist <= body2.get_grav().get_range(): impulse1 = vec/mm1
+		if !body2.get_grav().is_static() and !body1.get_grav().is_tiny() and dist <= body1.get_grav().get_range(): impulse2 = -vec/mm2
 	
 	return [impulse1, impulse2]
 	

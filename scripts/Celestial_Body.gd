@@ -33,7 +33,6 @@ func scale_sprite(radius):
 
 func set_sprite(name):
 	var path = "res://sprites/planets/" + name
-	print(path)
 	var tex = load(path)
 	
 	find_node("Sprite").set_texture(tex)
