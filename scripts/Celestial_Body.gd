@@ -17,12 +17,12 @@ func set_radius(radius):
 	var shape = CircleShape2D.new()
 	shape.set_radius(radius)
 	
-	find_node("CollisionShape2D").set_shape(shape)
+	clear_shapes()
+	add_shape(shape)
 	
 	scale_sprite(radius)
 
 func scale_sprite(radius):
-	pass
 	var temp_sprite_size = 100.0
 	temp_sprite_size /= 2 #we need half
 	var scale = temp_sprite_size/radius
@@ -30,6 +30,13 @@ func scale_sprite(radius):
 	scale = Vector2(scale, scale)
 	
 	find_node("Sprite").set_scale(scale)
+
+func set_sprite(name):
+	var path = "res://sprites/planets/" + name
+	print(path)
+	var tex = load(path)
+	
+	find_node("Sprite").set_texture(tex)
 
 func _draw():
 	var center = Vector2(0,0)

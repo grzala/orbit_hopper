@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=1]
+
+[ext_resource path="res://scenes/levels/Level.scn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/Celestial_Body.scn" type="PackedScene" id=2]
+
+[sub_resource type="GDScript" id=1]
+
+script/source = "extends Node2D\n\n\nfunc _ready():\n\tvar bodies = find_node(\"G_Objects_Field\").get_children()\n\t\n\tbodies[1].set_sprite(\"barren.png\")"
+
+[node name="orbit_hopper" instance=ExtResource( 1 )]
+
+script/script = SubResource( 1 )
+
+[node name="Ship" parent="G_Objects_Field"]
+
+transform/pos = Vector2( 433.694, 277.25 )
+
+[node name="Celestial_Body" parent="G_Objects_Field" instance=ExtResource( 2 )]
+
+transform/pos = Vector2( 821.501, 269.814 )
+
+[node name="Celestial_Body1" parent="G_Objects_Field" instance=ExtResource( 2 )]
+
+transform/pos = Vector2( 1020.47, 263.785 )
+
+

@@ -11,9 +11,9 @@ func _ready():
 	
 	#bodies[0].get_grav().set_static(true)
 	#bodies[1].get_grav().set_static(true)
-	bodies[2].get_grav().set_static(true)
-	bodies[1].accelerate(Vector2(0, 500))
-	bodies[0].accelerate(Vector2(0, 200))
+	#bodies[2].get_grav().set_static(true)
+	#bodies[1].accelerate(Vector2(0, 500))
+	#bodies[0].accelerate(Vector2(0, 200))
 	#bodies[2].get_grav().set_gmass(80)
 	
 func _process(delta):
