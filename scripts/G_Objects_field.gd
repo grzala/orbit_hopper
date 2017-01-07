@@ -52,17 +52,19 @@ func process_gravity(delta):
 		if body1.get_grav().orbit_start_angle == null: body1.get_grav().orbit_start_angle = angle
 		
 		var dif = (angle - body1.get_grav().orbit_start_angle)
-		while dif > 2*PI: dif -= 2*PI
-		while dif < -2*PI: dif += 2*PI
+		while dif > PI: dif -= 2*PI
+		while dif < -PI: dif += 2*PI
 		
 		body1.get_grav().radians_orbited += dif
-		if body1.get_grav().type == "ship": 
-			if dif < 0: print(dif)
-			#print(body1.get_grav().radians_orbited)
 		body1.get_grav().orbit_start_angle = angle
 		
 		if abs(body1.get_grav().radians_orbited) > PI*2: #orbiting
+			if body1.get_grav().radians_orbited < 0: body1.get_grav().radians_orbited = -2*PI
+			elif body1.get_grav().radians_orbited > 0: body1.get_grav().radians_orbited = 2*PI
 			body1.get_grav().orbiting = body1.get_grav().calculating_orbit_for
+		else:
+			if body1.get_grav().orbiting != null and body1.get_grav().orbiting == body2:
+				body1.get_grav().orbiting = null
 			
 		
 	var s = find_node("Ship")

@@ -80,6 +80,7 @@ func release():
 	var vec = polar(angle, power)
 	vec = -vec
 	var probe = preload("res://scenes/Probe.scn").instance()
+	probe.set_name("Probe")
 	probe.accelerate(vec)
 	probe.set_linear_velocity(ship.get_linear_velocity())
 	probe.set_pos(ship.get_pos())
