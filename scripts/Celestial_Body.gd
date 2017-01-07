@@ -3,6 +3,7 @@ extends RigidBody2D
 onready var grav_body = find_node("Grav_Body")
 
 var acceleration = Vector2(0, 0)
+onready var dot_texture = preload("res://sprites/dot.png")
 
 func _ready():
 	grav_body.radius = find_node("CollisionShape2D").get_shape().get_radius();
@@ -10,6 +11,24 @@ func _ready():
 	set_radius(15)
 	set_process(true)
 	
+	init_dotted_border()
+
+func init_dotted_border():
+	var current_angle = 0
+	var angle_delta = PI/25.0
+	var radius = grav_body.gravity_range
+	
+	while (current_angle <= PI*2):
+		var pos = polar(current_angle, radius)
+		
+		var sprite = Sprite.new()
+		sprite.set_texture(dot_texture)
+		sprite.set_pos(pos)
+		sprite.set_scale(Vector2(0.25, 0.25))
+		add_child(sprite)
+		
+		current_angle += angle_delta
+
 func get_grav():
 	return grav_body
 
@@ -37,25 +56,8 @@ func set_sprite(name):
 	
 	find_node("Sprite").set_texture(tex)
 
-func _draw():
-	var center = Vector2(0,0)
-	var radius = grav_body.gravity_range
-	var angle_from = 0
-	var angle_to = 359
-	var color = Color(1.0, 0.0, 0.0)
-	draw_dotted_circle_arc(center, radius, angle_from, angle_to, color)
+	
 
-func draw_dotted_circle_arc( center, radius, angle_from, angle_to, color ):
-	var nb_points = 32
-	var points_arc = Vector2Array()
-	
-	for i in range(nb_points+1):
-		var angle_point = angle_from + i*(angle_to-angle_from)/nb_points - 90
-		var point = center + Vector2( cos(deg2rad(angle_point)), sin(deg2rad(angle_point)) ) * radius
-		points_arc.push_back( point )
-	
-	for indexPoint in range(0, nb_points, 2):
-		draw_line(points_arc[indexPoint], points_arc[indexPoint+1], color)
 
 func _process(delta):
 	if !grav_body.stat:
@@ -79,3 +81,7 @@ func clone():
 	node.set_pos(get_pos())
 	
 	return node
+	
+
+func polar(angle, radius):
+	return Vector2(radius * cos(angle), radius * sin(angle))

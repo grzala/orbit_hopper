@@ -1,12 +1,17 @@
 const MAXINT = 2147483647
 
-var g_mass = 300000
+var g_mass = 600000.0
 var acceleration = Vector2(0, 0)
 var stat = false
 var tiny = false
 var type = "celestial_body"
 
-var gravity_range = 250
+var orbiting = null
+var calculating_orbit_for = null
+var orbit_start_angle = null
+var radians_orbited = 0
+
+var gravity_range = 250.0
 
 export var radius = 20.0
 

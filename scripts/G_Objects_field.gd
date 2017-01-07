@@ -3,6 +3,9 @@ extends Node2D
 
 var bodies = get_children()
 const G = 1
+const MAXINT = 2147483647
+
+var last_dist = 0
 
 func _ready():
 	set_process(true)
@@ -17,13 +20,55 @@ func _ready():
 	#bodies[2].get_grav().set_gmass(80)
 	
 func _process(delta):
-	process_gravity()
+	process_gravity(delta)
 
-func process_gravity():
+func process_gravity(delta):
 	bodies = get_children()
-	apply_gravities_multiple(bodies)
+	apply_gravities_multiple(bodies, delta)
+	
+	#calculate which body is orbiting which body
+	for i in range(bodies.size()):
+		var closest_body = null
+		var dist = MAXINT
+		for j in range(0, bodies.size()): #find closest body
+			if i == j: continue
+			var d = bodies[i].get_pos().distance_to(bodies[j].get_pos())
+			if d < dist:
+				dist = d
+				closest_body = bodies[j]
+		
+		var body1 = bodies[i]
+		var body2 = closest_body
+		
+		if dist > body2.get_grav().gravity_range: #not orbiting if out of range
+			body1.get_grav().orbiting = null
+			body1.get_grav().orbit_start_angle = null
+			continue 
+		
+		var angle = atan2(body2.get_pos().y - body1.get_pos().y, body2.get_pos().x - body1.get_pos().x)
+		#if angle < 0: angle += 2*PI
+		
+		body1.get_grav().calculating_orbit_for = body2
+		if body1.get_grav().orbit_start_angle == null: body1.get_grav().orbit_start_angle = angle
+		
+		var dif = (angle - body1.get_grav().orbit_start_angle)
+		while dif > 2*PI: dif -= 2*PI
+		while dif < -2*PI: dif += 2*PI
+		
+		body1.get_grav().radians_orbited += dif
+		if body1.get_grav().type == "ship": 
+			if dif < 0: print(dif)
+			#print(body1.get_grav().radians_orbited)
+		body1.get_grav().orbit_start_angle = angle
+		
+		if abs(body1.get_grav().radians_orbited) > PI*2: #orbiting
+			body1.get_grav().orbiting = body1.get_grav().calculating_orbit_for
+			
+		
+	var s = find_node("Ship")
+	#print(s.get_grav().radians_orbited)
 
-func apply_gravities_multiple(bodies):
+func apply_gravities_multiple(bodies, delta):
 	if bodies == null: return
 	for i in range(bodies.size()):
 		for j in range(i, bodies.size()):
@@ -60,18 +105,23 @@ func get_impulse(body1, body2):
 	#else : mm2 = m1
 	
 	if body1.get_grav().is_tiny() or m1 == 0:
-		mm1 = 1
+		mm1 = 1.0
 	if body2.get_grav().is_tiny() or m2 == 0:
-		mm2 = 1
+		mm2 = 1.0
 	
 	var gravity = G * ((mm1*mm2) / (dist*dist))
 	
 	var vec = polar(angle, gravity)
 	var rr = body1.get_grav().get_radius() + body2.get_grav().get_radius()
 	
+	if dist > last_dist and last_dist < 160:
+		last_dist = dist
+		#print(last_dist)
+	
 	if dist >= rr:
 		if !body1.get_grav().is_static() and !body2.get_grav().is_tiny() and dist <= body2.get_grav().get_range(): impulse1 = vec/mm1
 		if !body2.get_grav().is_static() and !body1.get_grav().is_tiny() and dist <= body1.get_grav().get_range(): impulse2 = -vec/mm2
+		
 	
 	return [impulse1, impulse2]
 	

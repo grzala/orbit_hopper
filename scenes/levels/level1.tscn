@@ -5,7 +5,7 @@
 
 [sub_resource type="GDScript" id=1]
 
-script/source = "extends Node2D\n\n\nfunc _ready():\n\tfind_node(\"G_Objects_Field\").remove_child(find_node(\"Celestial_Body1\"))\n\tvar bodies = find_node(\"G_Objects_Field\").get_children()\n\t\n\t\n\tbodies[1].set_sprite(\"barren.png\")\n\t#bodies[2].set_sprite(\"tundra.png\")\n\t\n\tvar G = find_node(\"G_Objects_Field\").G\n\tvar vel = bodies[0].get_grav().get_circular_orbit_velocity(G, bodies[0], bodies[1])\n\tbodies[0].set_linear_velocity(Vector2(0, vel))"
+script/source = "extends Node2D\n\nconst level_no = 1\n\nfunc _ready():\n\tvar bodies = find_node(\"G_Objects_Field\").get_children()\n\t\n\t\n\tbodies[1].set_sprite(\"barren.png\")\n\t#bodies[2].set_sprite(\"tundra.png\")\n\t\n\tvar G = find_node(\"G_Objects_Field\").G\n\tvar vel = bodies[0].get_grav().get_circular_orbit_velocity(G, bodies[0], bodies[1])\n\tvar angle = atan2(bodies[1].get_pos().y - bodies[0].get_pos().y, bodies[1].get_pos().x - bodies[0].get_pos().x)\n\tangle = angle - PI/2.0 - 0.1\n\t\n\tbodies[0].set_linear_velocity(polar(angle, vel))\n\t\n\t#OS.set_time_scale(0.5)\n\nfunc complete():\n\tget_tree().change_scene(\"res://scenes/levels/level\" + level_no+1 + \".tscn\")\n\nfunc polar(angle, radius):\n\treturn Vector2(radius * cos(angle), radius * sin(angle))"
 
 [node name="orbit_hopper" instance=ExtResource( 1 )]
 
@@ -18,9 +18,5 @@ transform/pos = Vector2( 1075.82, 380 )
 [node name="Celestial_Body" parent="G_Objects_Field" instance=ExtResource( 2 )]
 
 transform/pos = Vector2( 943.596, 380 )
-
-[node name="Celestial_Body1" parent="G_Objects_Field" instance=ExtResource( 2 )]
-
-transform/pos = Vector2( 185.403, 380 )
 
 

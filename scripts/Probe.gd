@@ -17,10 +17,13 @@ func get_grav():
 func _process(delta):
 	if !grav_body.stat:
 		set_linear_velocity(get_linear_velocity() + (acceleration * delta))
-		set_linear_velocity(get_linear_velocity()+ (-get_linear_velocity() * friction))
-		#set_pos(get_pos() + velocity * delta)
+		set_rot(get_linear_velocity().angle() + PI)
+		
 	acceleration = Vector2(0, 0)
-	update()
+	
+	
+	set_pos(get_pos() + get_linear_velocity()*delta) #instead of update call?
+	#update()
 
 func accelerate(vec):
 	acceleration += vec

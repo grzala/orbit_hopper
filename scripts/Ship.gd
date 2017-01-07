@@ -2,8 +2,10 @@ extends RigidBody2D
 
 onready var grav_body = find_node("Grav_Body")
 
-var acceleration = Vector2(0, 0)
+var poss = Array()
+var time = 1.0
 
+var acceleration = Vector2(0, 0)
 func _ready():
 	grav_body.type = "ship"
 	#grav_body.tiny = true
@@ -11,18 +13,36 @@ func _ready():
 	grav_body.set_tiny(true)
 	
 	set_process(true)
+	
 
 func get_grav():
 	return grav_body
 
 func _process(delta):
+	
 	if !grav_body.stat:
-		find_node("Sprite").set_rot(-get_linear_velocity().angle())
-		
 		set_linear_velocity(get_linear_velocity() + (acceleration * delta))
-		#set_pos(get_pos() + velocity * delta)
+		set_rotation(get_linear_velocity().angle() + PI)
+		
 	acceleration = Vector2(0, 0)
-	update()
+	time += delta
+	if time > 0.5:
+		time = 0
+		poss.append(get_pos())
+		
+	set_pos(get_pos() + get_linear_velocity()*delta) #instead of update call?
+
+	#update()
+
+func _draw():
+	draw_set_transform(-get_pos(), 0, Vector2(1, 1))
+	for i in range(poss.size()-1):
+		i = i
+		#draw_line(poss[i], poss[i+1], Color(0, 255, 255), 2)
+		#print(i)
+
+func set_rotation(i):
+	set_rot(i)
 	
 
 func accelerate(vec):
