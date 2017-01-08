@@ -7,7 +7,9 @@ var pos1
 var pos2
 
 const MAX_POWER = 8000
-const MAX_DIST = 280
+const MAX_DIST = 320
+const MIN_DIST = 150
+
 
 var probe = preload("res://scenes/Probe.scn")
 onready var ship = get_node("/root/orbit_hopper/G_Objects_Field/Ship")
@@ -52,7 +54,9 @@ func aim():
 	
 	#find power and angle
 	var dist = pos1.distance_to(pos2)
+	dist = max(dist, MIN_DIST)
 	dist = min(dist, MAX_DIST)
+	print(dist)
 	#dist / MAX_DIST = power / MAX_POWER
 	var power = ((dist * MAX_POWER) / MAX_DIST)
 	var angle = atan2(pos2.y - pos1.y, pos2.x - pos1.x)
@@ -71,6 +75,7 @@ func release():
 	
 	#find power and angle
 	var dist = pos1.distance_to(pos2)
+	dist = max(dist, MIN_DIST)
 	dist = min(dist, MAX_DIST)
 	#dist / MAX_DIST = power / MAX_POWER
 	var power = (dist * MAX_POWER) / MAX_DIST
@@ -128,8 +133,8 @@ func _input(event):
 		
 	
 	if event.is_action_pressed("ui_select"):
-		var probe = get_node("/root/orbit_hopper/G_Objects_Field/Probe")\
-		
+		var probe = get_node("/root/orbit_hopper/G_Objects_Field/Probe")
+		get_node("/root/orbit_hopper/G_Objects_Field/Probe").remove_child(ship)
 		if probe != null:
 			probe.slow_down()
 		
