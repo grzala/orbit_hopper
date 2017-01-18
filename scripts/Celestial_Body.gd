@@ -85,3 +85,4 @@ func clone():
 
 func polar(angle, radius):
 	return Vector2(radius * cos(angle), radius * sin(angle))
+	

@@ -51,9 +51,8 @@ func simulate(bodies):
 	
 	var dd = d * range_delta
 	dd = 0.03 * range_delta ############################ debug
-	#higher range, with some accuracy loss - increase delta
-	#delta *= 4.0
-	for i in range(50):
+	
+	for i in range(50): # for x deltas
 		#update bodies
 		for j in range(bodies.size()):
 			for k in range(j + 1, bodies.size()):

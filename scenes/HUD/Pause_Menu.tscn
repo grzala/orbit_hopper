@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=1]
+
+[ext_resource path="res://scripts/HUD/Pause_Menu.gd" type="Script" id=1]
+
+[node name="Pause_Menu" type="CanvasLayer"]
+
+layer = 1
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+script/script = ExtResource( 1 )
+
+[node name="Resume" type="Button" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 472.0
+margin/top = 185.0
+margin/right = 746.0
+margin/bottom = 388.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Resume"
+flat = false
+
+[connection signal="button_down" from="Resume" to="." method="_on_Resume_button_down"]
+
+

@@ -14,6 +14,8 @@ var power
 var angle
 var vec
 
+var slowdown
+
 
 var probe = preload("res://scenes/Probe.scn")
 onready var ship = get_node("/root/orbit_hopper/G_Objects_Field/Ship")
@@ -37,7 +39,14 @@ func _ready():
 	pos2 = null
 	
 func _process(delta):
+	if delta == 0 or OS.get_time_scale() == 0: return #paused
+	
 	aim()
+	if slowdown:
+		var probe = get_node("/root/orbit_hopper/G_Objects_Field/Probe")
+		if probe != null:
+			probe.slow_down()
+	
 	update()
 	
 func aim():
@@ -57,8 +66,8 @@ func aim():
 	#find power and angle
 	var dist = pos1.distance_to(pos2)
 	dist = min(dist, MAX_DIST)
-	print(dist)
-	#dist / MAX_DIST = power / MAX_POWER
+	
+	#dist / MAX_DIST = power / MAX_POWER //proporcje
 	power = ((dist * MAX_POWER) / MAX_DIST)
 	power = max(power, MIN_POWER)
 	angle = atan2(pos2.y - pos1.y, pos2.x - pos1.x)
@@ -125,9 +134,9 @@ func _input(event):
 		clean_aim()
 		
 	if event.is_action_pressed("ui_select"):
-		var probe = get_node("/root/orbit_hopper/G_Objects_Field/Probe")
-		if probe != null:
-			probe.slow_down()
+		slowdown = true
+	elif event.is_action_released("ui_select"):
+		slowdown = false
 		
 	#released
 	elif event.is_action_released("ui_touch"):

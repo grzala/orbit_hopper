@@ -58,3 +58,5 @@ func get_circular_orbit_velocity(G, body1, body2):
 	vel = sqrt(vel)
 	
 	return vel 
+	
+
