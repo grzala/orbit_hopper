@@ -7,11 +7,12 @@ var pausebutton
 func _ready():
 	pass
 
-
-func _on_Resume_button_down():
-	resume()
 	
 func resume():
 	resume = true
 	OS.set_time_scale(1)
 	queue_free()
+
+
+func _on_Resume_button_up():
+	resume()

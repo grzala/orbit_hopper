@@ -26,6 +26,6 @@ shortcut = null
 text = "Resume"
 flat = false
 
-[connection signal="button_down" from="Resume" to="." method="_on_Resume_button_down"]
+[connection signal="button_up" from="Resume" to="." method="_on_Resume_button_up"]
 
 

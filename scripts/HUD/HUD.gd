@@ -11,7 +11,9 @@ func _process(delta):
 	
 	
 
-func _on_Pause_pressed():
+
+
+func _on_Pause_button_up():
 	var paused = false
 	var pmenu = null
 	for c in get_children():
