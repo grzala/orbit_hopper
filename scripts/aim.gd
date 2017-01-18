@@ -35,40 +35,6 @@ func sum(array):
 	return sum
 
 func _process(delta):
-#	ship_pos_array = Array()
-#	bodies = duplicate_bodies(grav_field.get_children())
-#	ship_pos_array.push_back(bodies[0].get_pos())
-#	
-#	var d = range_delta
-#	
-#	#higher range, with some accuracy loss - increase delta
-#	#delta *= 4.0
-#	for i in range(25):
-#		#update bodies
-#		for j in range(bodies.size()):
-#			for k in range(j + 1, bodies.size()):
-#				if j == k: continue
-#				
-#				var body1 = bodies[j]
-#				var body2 = bodies[k]
-#				
-#				var impulse = grav_field.get_impulse(body1, body2)
-#				
-#				#print(body2.type) 
-#				
-#				#acceleration
-#				if !body1.get_grav().is_static(): body1.set_linear_velocity(body1.get_linear_velocity() + (impulse[0] * d))
-#				if !body2.get_grav().is_static(): body2.set_linear_velocity(body2.get_linear_velocity() + (impulse[1] * d))
-#
-#		#velocity update pos
-#		for j in range(bodies.size()):
-#			var body = bodies[j]
-#			if !body.get_grav().is_static(): body.set_pos(body.get_pos() + (body.get_linear_velocity() * d))
-#				
-#				
-#		
-#		ship_pos_array.push_back(bodies[0].get_pos())
-#	
 	if last_scale != OS.get_time_scale():
 		last_scale = OS.get_time_scale()
 		deltas = Array()
@@ -84,7 +50,7 @@ func simulate(bodies):
 	ship_pos_array.push_back(bodies[0].get_pos())
 	
 	var dd = d * range_delta
-	
+	dd = 0.03 * range_delta ############################ debug
 	#higher range, with some accuracy loss - increase delta
 	#delta *= 4.0
 	for i in range(50):
@@ -99,7 +65,7 @@ func simulate(bodies):
 				var impulse = grav_field.get_impulse(body1, body2)
 				
 				#print(body2.type) 
-				#acceleration
+				#acceleration simulate
 				if !body1.get_grav().is_static(): body1.set_linear_velocity(body1.get_linear_velocity() + (impulse[0] * dd))
 				if !body2.get_grav().is_static(): body2.set_linear_velocity(body2.get_linear_velocity() + (impulse[1] * dd))
 
@@ -118,8 +84,7 @@ func duplicate_bodies(bodies):
 	
 	for i in range(bodies.size()):
 		array.push_front(bodies[i].clone())
-		#else: array.push_back(bodies[i].clone())
-
+	
 	return array
 
 	

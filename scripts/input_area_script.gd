@@ -6,9 +6,13 @@ var aiming
 var pos1
 var pos2
 
-const MAX_POWER = 8000
-const MAX_DIST = 320
-const MIN_DIST = 150
+const MAX_POWER = 12000
+const MIN_POWER = 4000
+var MAX_DIST = OS.get_window_size().width * 0.6 #60% of screen
+
+var power
+var angle
+var vec
 
 
 var probe = preload("res://scenes/Probe.scn")
@@ -45,24 +49,23 @@ func aim():
 	
 	#slow motion, implement this in level scipt
 	#OS.set_time_scale(0.2)
-	OS.set_time_scale(0.00001)
+	OS.set_time_scale(0.1)
 	
 	if !mobile: #mobile pos2 is updated by screen dragged
 		pos2 = get_viewport().get_mouse_pos()
-		
-	aim_line.end = pos2
 	
 	#find power and angle
 	var dist = pos1.distance_to(pos2)
-	dist = max(dist, MIN_DIST)
 	dist = min(dist, MAX_DIST)
 	print(dist)
 	#dist / MAX_DIST = power / MAX_POWER
-	var power = ((dist * MAX_POWER) / MAX_DIST)
-	var angle = atan2(pos2.y - pos1.y, pos2.x - pos1.x)
-	var vec = polar(angle, power)
+	power = ((dist * MAX_POWER) / MAX_DIST)
+	power = max(power, MIN_POWER)
+	angle = atan2(pos2.y - pos1.y, pos2.x - pos1.x)
+	vec = polar(angle, power)
 	vec = -vec
 	
+	aim_line.end = pos2
 	aim_line.vec = vec
 	aim_line.ship_pos = ship.get_pos()
 	aim_line.ship_vel = ship.get_linear_velocity()
@@ -73,17 +76,6 @@ func release():
 	
 	OS.set_time_scale(1)
 	
-	#find power and angle
-	var dist = pos1.distance_to(pos2)
-	dist = max(dist, MIN_DIST)
-	dist = min(dist, MAX_DIST)
-	#dist / MAX_DIST = power / MAX_POWER
-	var power = (dist * MAX_POWER) / MAX_DIST
-	var angle = atan2(pos2.y - pos1.y, pos2.x - pos1.x)
-	
-	#initialize new probe
-	var vec = polar(angle, power)
-	vec = -vec
 	var probe = preload("res://scenes/Probe.scn").instance()
 	probe.set_name("Probe")
 	probe.accelerate(vec)
@@ -126,15 +118,14 @@ func _input(event):
 			if pos1 == null:
 				pos1 = event.pos
 			aim_line.start = pos1
+		
 	elif event.is_action_pressed("ui_cancel_shot"):
 		OS.set_time_scale(1)
 		aiming = false
 		clean_aim()
 		
-	
 	if event.is_action_pressed("ui_select"):
 		var probe = get_node("/root/orbit_hopper/G_Objects_Field/Probe")
-		get_node("/root/orbit_hopper/G_Objects_Field/Probe").remove_child(ship)
 		if probe != null:
 			probe.slow_down()
 		
