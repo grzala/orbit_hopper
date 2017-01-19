@@ -81,8 +81,8 @@ func apply_gravities_multiple(bodies, delta):
 			
 			var impulse = get_impulse(body1, body2)
 			
-			body1.accelerate(impulse[0])
-			body2.accelerate(impulse[1])
+			body1.accelerate(impulse[0] * delta)
+			body2.accelerate(impulse[1] * delta)
 	
 
 func get_impulse(body1, body2):

@@ -21,7 +21,7 @@ func get_grav():
 func _process(delta):
 	
 	if !grav_body.stat:
-		set_linear_velocity(get_linear_velocity() + (acceleration * delta))
+		set_linear_velocity(get_linear_velocity() + (acceleration))
 		set_rotation(get_linear_velocity().angle() + PI)
 		
 	acceleration = Vector2(0, 0)

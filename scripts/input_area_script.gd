@@ -6,9 +6,12 @@ var aiming
 var pos1
 var pos2
 
-const MAX_POWER = 12000
-const MIN_POWER = 4000
-var MAX_DIST = OS.get_window_size().width * 0.6 #60% of screen
+const MAX_POWER = 60
+const MIN_POWER = 15
+var MAX_DIST = OS.get_window_size().width * 0.5 #60% of screen
+
+const MIN_TIME_SCAlE = 0.05
+const TIME_SCALE_DELTA = 2
 
 var power
 var angle
@@ -41,6 +44,13 @@ func _ready():
 func _process(delta):
 	if delta == 0 or OS.get_time_scale() == 0: return #paused
 	
+	if aiming:
+		if OS.get_time_scale() > MIN_TIME_SCAlE:
+			OS.set_time_scale(OS.get_time_scale() - TIME_SCALE_DELTA * delta)
+	else:
+		if OS.get_time_scale() < 1:
+			OS.set_time_scale(OS.get_time_scale() + TIME_SCALE_DELTA * delta)
+	
 	aim()
 	if slowdown:
 		var probe = get_node("/root/orbit_hopper/G_Objects_Field/Probe")
@@ -58,7 +68,6 @@ func aim():
 	
 	#slow motion, implement this in level scipt
 	#OS.set_time_scale(0.2)
-	OS.set_time_scale(0.1)
 	
 	if !mobile: #mobile pos2 is updated by screen dragged
 		pos2 = get_viewport().get_mouse_pos()
@@ -87,8 +96,8 @@ func release():
 	
 	var probe = preload("res://scenes/Probe.scn").instance()
 	probe.set_name("Probe")
-	probe.accelerate(vec)
-	probe.set_linear_velocity(ship.get_linear_velocity())
+	probe.set_linear_velocity(vec)
+	probe.set_linear_velocity(probe.get_linear_velocity() + ship.get_linear_velocity())
 	probe.set_pos(ship.get_pos())
 	
 	var field = get_node("/root/orbit_hopper/G_Objects_Field")
