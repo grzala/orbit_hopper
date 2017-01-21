@@ -1,12 +1,14 @@
 extends Node2D
 
 var goal
-var level_no
 
 func _process(delta):
 	var field = find_node("G_Objects_Field")
 	var probe = null
 	var ship = field.find_node("Ship")
+	
+	if ship == null:
+		reset()
 	
 	for p in field.get_children():
 		if p.get_name() == "Probe": probe = p
@@ -28,7 +30,10 @@ func _process(delta):
 
 
 func complete():
-	get_tree().change_scene("res://scenes/levels/level" + str(level_no+1) + ".tscn")
+	get_tree().change_scene("res://scenes/levels/level" + str(globals.level_no+1) + ".tscn")
+
+func reset():
+	get_tree().change_scene("res://scenes/levels/level" + str(globals.level_no) + ".tscn")
 
 func polar(angle, radius):
 	return Vector2(radius * cos(angle), radius * sin(angle))

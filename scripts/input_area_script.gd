@@ -6,7 +6,7 @@ var aiming
 var pos1
 var pos2
 
-const MAX_POWER = 60
+const MAX_POWER = 70
 const MIN_POWER = 15
 var MAX_DIST = OS.get_window_size().width * 0.5 #60% of screen
 

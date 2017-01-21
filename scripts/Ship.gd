@@ -17,22 +17,23 @@ func _ready():
 
 func get_grav():
 	return grav_body
-
-func _process(delta):
 	
+func _integrate_forces(state):
 	if !grav_body.stat:
 		set_linear_velocity(get_linear_velocity() + (acceleration))
-		set_rotation(get_linear_velocity().angle() + PI)
+		var v = -get_linear_velocity()
+		var angle = atan2(v.x, v.y)
+		set_rot(angle)
 		
 	acceleration = Vector2(0, 0)
+
+func _process(delta):
 	time += delta
 	if time > 0.5:
 		time = 0
 		poss.append(get_pos())
-		
-	set_pos(get_pos() + get_linear_velocity()*delta) #instead of update call?
 
-	#update()
+	update()
 
 func _draw():
 	draw_set_transform(-get_pos(), 0, Vector2(1, 1))
@@ -60,3 +61,6 @@ func clone():
 	node.set_pos(get_pos())
 	
 	return node
+	
+func die():
+	queue_free()

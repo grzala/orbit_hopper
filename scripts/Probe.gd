@@ -3,7 +3,6 @@ extends RigidBody2D
 onready var grav_body = find_node("Grav_Body")
 
 var acceleration = Vector2(0, 0)
-const friction = 0.000
 
 var slowdown = false
 var tank = 100
@@ -12,6 +11,8 @@ const time_to_regenerate = 1
 var unburn_time = 0
 
 func _ready():
+	set_contact_monitor(true)
+	
 	grav_body.tiny = true
 	grav_body.type = "probe"
 	grav_body.g_mass = 10
@@ -19,26 +20,26 @@ func _ready():
 
 func get_grav():
 	return grav_body
-
-func _process(delta):
+	
+func _integrate_forces(state):
 	if !grav_body.stat:
 		set_linear_velocity(get_linear_velocity() + (acceleration))
-		set_rot(get_linear_velocity().angle() + PI)
+		var v = -get_linear_velocity()
+		var angle = atan2(v.x, v.y)
+		set_rot(angle)
 		
 	acceleration = Vector2(0, 0)
-	
-	
-	set_pos(get_pos() + get_linear_velocity()*delta) #instead of update call?
-	
+
+func _process(delta):
 	if slowdown and tank > 0:
 		var power = 30
 		var angle = atan2(-get_linear_velocity().y, -get_linear_velocity().x)
 		var vec = polar(angle, power)
 		vec = vec * delta
-		set_linear_velocity(get_linear_velocity() + vec)
-		tank -= vec.length()
-		
-		unburn_time = 0
+		if get_linear_velocity().length() > 10:
+			set_linear_velocity(get_linear_velocity() + vec)
+			tank -= vec.length()
+			unburn_time = 0
 	else:
 		unburn_time += delta
 		if unburn_time >= time_to_regenerate:
@@ -47,7 +48,8 @@ func _process(delta):
 	#print(tank)
 	
 	slowdown = false
-	#update()
+	
+	update()
 
 func accelerate(vec):
 	acceleration += vec
@@ -71,4 +73,7 @@ func clone():
 	node.set_pos(get_pos())
 	
 	return node
-	
+
+func die():
+	queue_free()
+

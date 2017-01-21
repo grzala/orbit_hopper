@@ -1,5 +1,6 @@
 extends CanvasLayer
 
+var action = null
 
 func _ready():
 	set_process(true)
@@ -8,10 +9,6 @@ func _process(delta):
 	var pausemenu = find_node("Pause_Menu")
 	if pausemenu != null and pausemenu.resume == true:
 		pass
-	
-	
-
-
 
 func _on_Pause_button_up():
 	var paused = false
@@ -29,3 +26,4 @@ func _on_Pause_button_up():
 	
 	else:
 		pmenu.resume()
+		action = "resume"

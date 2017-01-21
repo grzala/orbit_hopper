@@ -6,7 +6,7 @@ var acceleration = Vector2(0, 0)
 onready var dot_texture = preload("res://sprites/dot.png")
 
 func _ready():
-	grav_body.radius = find_node("CollisionShape2D").get_shape().get_radius();
+	grav_body.radius = find_node("CollisionShape2D").get_shape().get_radius()
 	#scale_sprite(radius)
 	set_radius(15)
 	set_process(true)
@@ -56,14 +56,13 @@ func set_sprite(name):
 	
 	find_node("Sprite").set_texture(tex)
 
-	
-
-
-func _process(delta):
+func _integrate_forces(state):
 	if !grav_body.stat:
-		set_linear_velocity(get_linear_velocity() + (acceleration ))
+		set_linear_velocity(get_linear_velocity() + (acceleration))
 		#set_pos(get_pos() + velocity * delta)
 	acceleration = Vector2(0, 0)
+
+func _process(delta):
 	update()
 
 func accelerate(vec):

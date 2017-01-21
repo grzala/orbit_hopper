@@ -26,6 +26,24 @@ shortcut = null
 text = "Resume"
 flat = false
 
+[node name="Reset" type="Button" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 464.0
+margin/top = 397.0
+margin/right = 738.0
+margin/bottom = 600.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Retry"
+flat = false
+
 [connection signal="button_up" from="Resume" to="." method="_on_Resume_button_up"]
+
+[connection signal="button_up" from="Reset" to="." method="_on_Reset_button_up"]
 
 

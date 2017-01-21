@@ -50,7 +50,7 @@ func simulate(bodies):
 	ship_pos_array.push_back(bodies[0].get_pos())
 	
 	var dd = d * range_delta
-	dd = 0.03 * range_delta ############################ debug
+	#dd = 0.03 * range_delta ############################ debug
 	
 	for i in range(50): # for x deltas
 		#update bodies
@@ -71,7 +71,8 @@ func simulate(bodies):
 		#velocity update pos
 		for j in range(bodies.size()):
 			var body = bodies[j]
-			if !body.get_grav().is_static(): body._process(0)
+			#if !body.get_grav().is_static(): body._process(0)
+			body._integrate_forces(null)
 			if !body.get_grav().is_static(): body.set_pos(body.get_pos() + (body.get_linear_velocity() * dd))
 				
 		
@@ -110,5 +111,6 @@ func _draw():
 	
 			
 	
+
 
 

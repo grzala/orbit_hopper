@@ -16,3 +16,7 @@ func resume():
 
 func _on_Resume_button_up():
 	resume()
+
+func _on_Reset_button_up():
+	resume()
+	globals.current_level.reset()
