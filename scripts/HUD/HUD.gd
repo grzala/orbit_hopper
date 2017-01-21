@@ -10,7 +10,7 @@ func _process(delta):
 	if pausemenu != null and pausemenu.resume == true:
 		pass
 
-func _on_Pause_button_up():
+func _on_Pause_pressed():
 	var paused = false
 	var pmenu = null
 	for c in get_children():
