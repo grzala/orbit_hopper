@@ -25,7 +25,7 @@ func _process(delta):
 			
 			field.remove_child(probe)
 			
-	if ship.get_grav().orbiting == goal:
+	if ship != null and ship.get_grav().orbiting == goal:
 		complete()
 
 

@@ -50,6 +50,10 @@ func _process(delta):
 	slowdown = false
 	
 	update()
+	
+	for body in get_colliding_bodies():
+		if !body.has_method("get_grav") or body.get_grav().type != "ship":
+			die()
 
 func accelerate(vec):
 	acceleration += vec

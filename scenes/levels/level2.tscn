@@ -5,7 +5,7 @@
 
 [sub_resource type="GDScript" id=1]
 
-script/source = "extends \"res://scenes/levels/level.gd\"\n\nfunc _ready():\n\tset_process(true)\n\t\n\tvar bodies = find_node(\"G_Objects_Field\").get_children()\n\t\n\tglobals.level_no = 2\n\tglobals.current_level = self\n\t\n\tgoal = find_node(\"G_Objects_Field\").find_node(\"Goal\")\n\t\n\tbodies[1].set_sprite(\"barren-icy.png\")\n\tbodies[2].set_sprite(\"chlorine.png\")\n\tbodies[3].set_sprite(\"inferno.png\")\n\tbodies[4].set_sprite(\"methane-ice.png\")\n\t\n\tvar G = find_node(\"G_Objects_Field\").G\n\tvar vel = bodies[0].get_grav().get_circular_orbit_velocity(G, bodies[0], bodies[1])\n\tvar angle = atan2(bodies[1].get_pos().y - bodies[0].get_pos().y, bodies[1].get_pos().x - bodies[0].get_pos().x)\n\tangle = angle - PI/2.0 - 0.1\n\t\n\tbodies[0].set_linear_velocity(polar(angle, vel))"
+script/source = "extends \"res://scenes/levels/level.gd\"\n\nfunc _ready():\n\tset_process(true)\n\t\n\tvar bodies = find_node(\"G_Objects_Field\").get_children()\n\t\n\tglobals.level_no = 2\n\tglobals.current_level = self\n\t\n\tgoal = find_node(\"G_Objects_Field\").find_node(\"Goal\")\n\tgoal = null\n\t\n\tbodies[1].set_sprite(\"barren-icy.png\")\n\tbodies[2].set_sprite(\"chlorine.png\")\n\tbodies[3].set_sprite(\"inferno.png\")\n\tbodies[4].set_sprite(\"methane-ice.png\")\n\t\n\tvar G = find_node(\"G_Objects_Field\").G\n\tvar vel = bodies[0].get_grav().get_circular_orbit_velocity(G, bodies[0], bodies[1])\n\tvar angle = atan2(bodies[1].get_pos().y - bodies[0].get_pos().y, bodies[1].get_pos().x - bodies[0].get_pos().x)\n\tangle = angle - PI/2.0 - 0.1\n\t\n\tbodies[0].set_linear_velocity(polar(angle, vel))"
 
 [node name="orbit_hopper" instance=ExtResource( 1 )]
 

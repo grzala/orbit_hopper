@@ -6,6 +6,8 @@ var poss = Array()
 var time = 1.0
 
 var acceleration = Vector2(0, 0)
+
+
 func _ready():
 	grav_body.type = "ship"
 	#grav_body.tiny = true
@@ -32,6 +34,10 @@ func _process(delta):
 	if time > 0.5:
 		time = 0
 		poss.append(get_pos())
+	
+	for body in get_colliding_bodies():
+		if !body.has_method("get_grav") or body.get_grav().type != "probe":
+			die()
 
 	update()
 
