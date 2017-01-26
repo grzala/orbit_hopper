@@ -1,5 +1,9 @@
 extends StaticBody2D
 
+onready var texture = preload("res://sprites/asteroids/asteroids.png")
+const SPRITES_PER_ROW = 32
+const COLUMNS = 2
+
 func _ready():
 	var placeholder = find_node("Placeholder_Sprite")
 	
@@ -15,10 +19,10 @@ func _ready():
 	
 
 func generate_random_asteroids(width, height, scale):
-	var texture = preload("res://sprites/asteroids/asteroids.png")
 	var texture_size = texture.get_size()
-	var step = texture_size.width/64 #64 sprites
+	var step = texture_size.width/SPRITES_PER_ROW #32 sprites
 	var possible_sprites = texture_size.width / step
+	var column_h = texture_size.height / COLUMNS
 	
 	var minx = -width
 	var maxx = width
@@ -28,8 +32,8 @@ func generate_random_asteroids(width, height, scale):
 	var templates = []
 	
 	var min_size = 10
-	var max_width = 0.16 * width
-	var max_height = 0.16 * height
+	var max_width = 0.1 * width
+	var max_height = 0.1 * height
 	var max_size = min(max_width, max_height) #take smaller not to exceed bouds
 		
 	
@@ -59,21 +63,26 @@ func generate_random_asteroids(width, height, scale):
 	
 	for template in templates:
 		var sprite = Sprite.new()
-		sprite.set_texture(texture)
 		sprite.set_pos(Vector2(template.x, template.y))
 		
 		#calculate size
 		#template.w = step * w_percent
 		var w_percent = template.s / step
-		var h_percent = template.s / texture_size.height
+		var h_percent = template.s / (column_h)
 		
 		sprite.set_scale(Vector2(w_percent, h_percent))
 		sprite.set_rot(rand_range(-PI, PI))
 		sprite.set_region(true)
 		
 		#get radom asteroid
-		var rand = randi()%(int(possible_sprites)-1)+0
-		sprite.set_region_rect(Rect2(Vector2(rand*step, 0), Vector2(step, texture_size.height)))
+		sprite.set_texture(texture)
+		var row = randi()%(int(possible_sprites*COLUMNS)-1)+0
+		var column = 0
+		while row > SPRITES_PER_ROW: 
+			column += 1
+			row -= SPRITES_PER_ROW
+			
+		sprite.set_region_rect(Rect2(Vector2(row*step, 0*step), Vector2(step, column_h)))
 		
 		add_child(sprite)
 

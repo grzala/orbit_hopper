@@ -10,8 +10,8 @@ const MAX_POWER = 70
 const MIN_POWER = 15
 var MAX_DIST = OS.get_window_size().width * 0.5 #60% of screen
 
-const MIN_TIME_SCAlE = 0.05
-const TIME_SCALE_DELTA = 2
+const MIN_TIME_SCAlE = 0.01
+const TIME_SCALE_DELTA = 3
 
 var power
 var angle

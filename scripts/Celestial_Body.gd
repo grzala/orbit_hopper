@@ -14,9 +14,24 @@ func _ready():
 	init_dotted_border()
 
 func init_dotted_border():
+	#remove previous border
+	var border = null
+	for child in get_children(): #find_node not working
+		if child.get_name() == "Border":
+			border = child
+			
+	if border != null: 
+		remove_child(border)
+	
+	#create new border
+	border = Node2D.new()
+	border.set_name("Border")
+	add_child(border)
+	
 	var current_angle = 0
 	var angle_delta = PI/25.0
 	var radius = grav_body.gravity_range
+	var i = 0
 	
 	while (current_angle <= PI*2):
 		var pos = polar(current_angle, radius)
@@ -25,9 +40,10 @@ func init_dotted_border():
 		sprite.set_texture(dot_texture)
 		sprite.set_pos(pos)
 		sprite.set_scale(Vector2(0.25, 0.25))
-		add_child(sprite)
+		border.add_child(sprite)
 		
 		current_angle += angle_delta
+		i+= 1
 
 func get_grav():
 	return grav_body
@@ -55,6 +71,10 @@ func set_sprite(name):
 	var tex = load(path)
 	
 	find_node("Sprite").set_texture(tex)
+
+func set_range(r):
+	get_grav().gravity_range = r
+	init_dotted_border()
 
 func _integrate_forces(state):
 	if !grav_body.stat:

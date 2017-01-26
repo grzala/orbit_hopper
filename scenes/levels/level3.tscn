@@ -6,7 +6,7 @@
 
 [sub_resource type="GDScript" id=1]
 
-script/source = "extends \"res://scenes/levels/level.gd\"\n\n\nfunc _ready():\n\tset_process(true)\n\t\n\tvar bodies = find_node(\"G_Objects_Field\").get_children()\n\t\n\tglobals.level_no = 3\n\tglobals.current_level = self\n\t\n\tgoal = find_node(\"G_Objects_Field\").find_node(\"Goal\")\n\t\n\tvar G = find_node(\"G_Objects_Field\").G\n\tvar vel = bodies[0].get_grav().get_circular_orbit_velocity(G, bodies[0], bodies[1])\n\tvar angle = atan2(bodies[1].get_pos().y - bodies[0].get_pos().y, bodies[1].get_pos().x - bodies[0].get_pos().x)\n\tangle = angle - PI/2.0 - 0.1\n\tprint(polar(angle, vel))\n\tbodies[0].set_linear_velocity(polar(angle, vel))\n\t\n\t#find_node(\"Goal\").set_linear_velocity(Vector2(0, 20))\n\t\n\t\n\t\n\t"
+script/source = "extends \"res://scenes/levels/level.gd\"\n\n\nfunc _ready():\n\tset_process(true)\n\t\n\tvar bodies = find_node(\"G_Objects_Field\").get_children()\n\t\n\tbodies[1].set_sprite(\"tundra.png\")\n\tbodies[2].set_sprite(\"methane-barren.png\")\n\tbodies[3].set_sprite(\"desert.png\")\n\t\n\tglobals.level_no = 3\n\tglobals.current_level = self\n\t\n\tgoal = find_node(\"G_Objects_Field\").find_node(\"Goal\")\n\t\n\tvar G = find_node(\"G_Objects_Field\").G\n\tvar vel = bodies[0].get_grav().get_circular_orbit_velocity(G, bodies[0], bodies[1])\n\tvar angle = atan2(bodies[1].get_pos().y - bodies[0].get_pos().y, bodies[1].get_pos().x - bodies[0].get_pos().x)\n\tangle = angle - PI/2.0 - 0.1\n\tprint(polar(angle, vel))\n\tbodies[0].set_linear_velocity(polar(angle, vel))\n\t\n\t#find_node(\"Goal\").set_linear_velocity(Vector2(0, 20))\n\t\n\t\n\t\n\t"
 
 [node name="orbit_hopper" instance=ExtResource( 1 )]
 
@@ -30,7 +30,7 @@ transform/pos = Vector2( 220.37, 379.373 )
 
 [node name="Asteroid_Field" parent="Other_Bodies" instance=ExtResource( 3 )]
 
-transform/pos = Vector2( 639.72, 479.379 )
-transform/scale = Vector2( 3.31253, 8.00213 )
+transform/pos = Vector2( 639.72, 505.987 )
+transform/scale = Vector2( 3.31253, 7.17063 )
 
 

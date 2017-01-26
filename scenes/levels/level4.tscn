@@ -1,0 +1,45 @@
+[gd_scene load_steps=5 format=1]
+
+[ext_resource path="res://scenes/levels/Level.scn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/Celestial_Body.scn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/Asteroid_Field.scn" type="PackedScene" id=3]
+
+[sub_resource type="GDScript" id=1]
+
+script/source = "extends \"res://scenes/levels/level.gd\"\n\n\nfunc _ready():\n\tset_process(true)\n\t\n\tvar bodies = find_node(\"G_Objects_Field\").get_children()\n\t\n\tbodies[1].set_sprite(\"tundra.png\")\n\tbodies[2].set_sprite(\"methane-barren.png\")\n\tbodies[3].set_sprite(\"desert.png\")\n\tbodies[4].set_sprite(\"tundra.png\")\n\t\n\tfor body in bodies:\n\t\tif body.has_method(\"set_range\"):\n\t\t\tbody.set_range(150.0)\n\t\n\tglobals.level_no = 4\n\tglobals.current_level = self\n\t\n\tgoal = find_node(\"G_Objects_Field\").find_node(\"Goal\")\n\t\n\tvar G = find_node(\"G_Objects_Field\").G\n\tvar vel = bodies[0].get_grav().get_circular_orbit_velocity(G, bodies[0], bodies[1])\n\tvar angle = atan2(bodies[1].get_pos().y - bodies[0].get_pos().y, bodies[1].get_pos().x - bodies[0].get_pos().x)\n\tangle = angle - PI/2.0 - 0.1\n\tprint(polar(angle, vel))\n\tbodies[0].set_linear_velocity(polar(angle, vel))\n\t\n\t#find_node(\"Goal\").set_linear_velocity(Vector2(0, 20))\n\t\n\t\n\t\n\t"
+
+[node name="orbit_hopper" instance=ExtResource( 1 )]
+
+script/script = SubResource( 1 )
+
+[node name="Ship" parent="G_Objects_Field"]
+
+transform/pos = Vector2( 1102.44, 375.49 )
+
+[node name="Celestial_Body" parent="G_Objects_Field" instance=ExtResource( 2 )]
+
+transform/pos = Vector2( 1008.54, 378.106 )
+
+[node name="Celestial_Body1" parent="G_Objects_Field" instance=ExtResource( 2 )]
+
+transform/pos = Vector2( 447.844, 506.424 )
+
+[node name="Celestial_Body2" parent="G_Objects_Field" instance=ExtResource( 2 )]
+
+transform/pos = Vector2( 782.585, 168.893 )
+
+[node name="Goal" parent="G_Objects_Field" instance=ExtResource( 2 )]
+
+transform/pos = Vector2( 174.472, 350.211 )
+
+[node name="Asteroid_Field" parent="Other_Bodies" instance=ExtResource( 3 )]
+
+transform/pos = Vector2( 784.51, 525.665 )
+transform/scale = Vector2( 1.67681, 7.32491 )
+
+[node name="Asteroid_Field1" parent="Other_Bodies" instance=ExtResource( 3 )]
+
+transform/pos = Vector2( 435.822, 211.767 )
+transform/scale = Vector2( 1.67681, 6.66867 )
+
+

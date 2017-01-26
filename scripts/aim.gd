@@ -39,8 +39,9 @@ func _process(delta):
 		last_scale = OS.get_time_scale()
 		deltas = Array()
 	delta = delta / (last_scale);
-	deltas.push_back(delta)
-	if (deltas.size() > 1): deltas.remove(0)
+	if delta > 0:
+		deltas.push_back(delta)
+	if (deltas.size() > 40): deltas.remove(0)
 	if (deltas.size() > 0): d = sum(deltas)/deltas.size()
 
 	update()

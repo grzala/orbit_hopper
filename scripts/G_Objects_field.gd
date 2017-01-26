@@ -43,6 +43,7 @@ func process_gravity(delta):
 		if dist > body2.get_grav().gravity_range: #not orbiting if out of range
 			body1.get_grav().orbiting = null
 			body1.get_grav().orbit_start_angle = null
+			body1.get_grav().radians_orbited = 0
 			continue 
 		
 		var angle = atan2(body2.get_pos().y - body1.get_pos().y, body2.get_pos().x - body1.get_pos().x)
@@ -120,7 +121,7 @@ func get_impulse(body1, body2):
 		last_dist = dist
 		#print(last_dist)
 	
-	if dist >= rr:
+	if true: #dist >= rr:
 		if !body1.get_grav().is_static() and !body2.get_grav().is_tiny() and dist <= body2.get_grav().get_range(): impulse1 = vec/mm1
 		if !body2.get_grav().is_static() and !body1.get_grav().is_tiny() and dist <= body1.get_grav().get_range(): impulse2 = -vec/mm2
 		

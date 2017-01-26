@@ -14,6 +14,7 @@ func _process(delta):
 		if p.get_name() == "Probe": probe = p
 	
 	if probe != null:
+		print(probe.get_grav().radians_orbited)
 		if probe.get_grav().orbiting != null: 
 			ship.set_pos(probe.get_pos())
 			ship.set_linear_velocity(probe.get_linear_velocity())
@@ -30,7 +31,8 @@ func _process(delta):
 
 
 func complete():
-	get_tree().change_scene("res://scenes/levels/level" + str(globals.level_no+1) + ".tscn")
+	pass
+	#get_tree().change_scene("res://scenes/levels/level" + str(globals.level_no+1) + ".tscn")
 
 func reset():
 	get_tree().change_scene("res://scenes/levels/level" + str(globals.level_no) + ".tscn")
