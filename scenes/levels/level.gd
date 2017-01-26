@@ -31,8 +31,7 @@ func _process(delta):
 
 
 func complete():
-	pass
-	#get_tree().change_scene("res://scenes/levels/level" + str(globals.level_no+1) + ".tscn")
+	get_tree().change_scene("res://scenes/levels/level" + str(globals.level_no+1) + ".tscn")
 
 func reset():
 	get_tree().change_scene("res://scenes/levels/level" + str(globals.level_no) + ".tscn")
