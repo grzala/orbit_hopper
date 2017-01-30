@@ -16,6 +16,13 @@ func _ready():
 	var height = extents.height
 	
 	generate_random_asteroids(width, height, get_scale())
+
+func resize(x, y):
+	var shape = RectangleShape2D.new()
+	shape.set_extents(Vector2(x, y))
+	
+	clear_shapes()
+	add_shape(shape)
 	
 
 func generate_random_asteroids(width, height, scale):

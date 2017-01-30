@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=1]
+[gd_scene load_steps=6 format=1]
 
 [ext_resource path="res://scenes/levels/Level.scn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Celestial_Body.scn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/Asteroid_Field.scn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/Asteroid_Field_Generator.tscn" type="PackedScene" id=4]
 
 [sub_resource type="GDScript" id=1]
 
@@ -28,24 +29,33 @@ transform/pos = Vector2( 640, 190 )
 
 transform/pos = Vector2( 220.37, 379.373 )
 
-[node name="Asteroid_Field" parent="Other_Bodies" instance=ExtResource( 3 )]
+[node name="Asteroid fields" type="Node2D" parent="Other_Bodies"]
 
-transform/pos = Vector2( 640, 325 )
+transform/pos = Vector2( 643.871, 434.716 )
+__meta__ = { "_edit_group_":true }
+
+[node name="Asteroid_Field" parent="Other_Bodies/Asteroid fields" instance=ExtResource( 3 )]
+
+transform/pos = Vector2( 0, -130 )
 transform/scale = Vector2( 2, 2 )
 
-[node name="Asteroid_Field1" parent="Other_Bodies" instance=ExtResource( 3 )]
+[node name="Asteroid_Field1" parent="Other_Bodies/Asteroid fields" instance=ExtResource( 3 )]
 
-transform/pos = Vector2( 640, 450 )
 transform/scale = Vector2( 2, 2 )
 
-[node name="Asteroid_Field2" parent="Other_Bodies" instance=ExtResource( 3 )]
+[node name="Asteroid_Field2" parent="Other_Bodies/Asteroid fields" instance=ExtResource( 3 )]
 
-transform/pos = Vector2( 640, 575 )
+transform/pos = Vector2( 0, 130 )
 transform/scale = Vector2( 2, 2 )
 
-[node name="Asteroid_Field3" parent="Other_Bodies" instance=ExtResource( 3 )]
+[node name="Asteroid_Field3" parent="Other_Bodies/Asteroid fields" instance=ExtResource( 3 )]
 
-transform/pos = Vector2( 640, 700 )
+transform/pos = Vector2( 0, 260 )
 transform/scale = Vector2( 2, 2 )
+
+[node name="Asteroid_Field_Generator" parent="Other_Bodies" instance=ExtResource( 4 )]
+
+transform/pos = Vector2( 404.083, 625.862 )
+transform/scale = Vector2( 2.28552, 2.87224 )
 
 

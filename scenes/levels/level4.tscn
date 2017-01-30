@@ -1,8 +1,7 @@
-[gd_scene load_steps=5 format=1]
+[gd_scene load_steps=4 format=1]
 
 [ext_resource path="res://scenes/levels/Level.scn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Celestial_Body.scn" type="PackedScene" id=2]
-[ext_resource path="res://scenes/Asteroid_Field.scn" type="PackedScene" id=3]
 
 [sub_resource type="GDScript" id=1]
 
@@ -31,15 +30,5 @@ transform/pos = Vector2( 782.585, 168.893 )
 [node name="Goal" parent="G_Objects_Field" instance=ExtResource( 2 )]
 
 transform/pos = Vector2( 174.472, 350.211 )
-
-[node name="Asteroid_Field" parent="Other_Bodies" instance=ExtResource( 3 )]
-
-transform/pos = Vector2( 784.51, 525.665 )
-transform/scale = Vector2( 1.67681, 7.32491 )
-
-[node name="Asteroid_Field1" parent="Other_Bodies" instance=ExtResource( 3 )]
-
-transform/pos = Vector2( 435.822, 211.767 )
-transform/scale = Vector2( 1.67681, 6.66867 )
 
 
