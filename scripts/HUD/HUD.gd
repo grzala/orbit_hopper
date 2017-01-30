@@ -14,6 +14,9 @@ func _process(delta):
 	if pausemenu != null and pausemenu.resume == true:
 		pass
 	
+	update_fuel()
+
+func update_fuel():
 	var percent = ""
 	if globals.current_probe == null or globals.current_probe.get("tank") == null:
 		percent = "100"
