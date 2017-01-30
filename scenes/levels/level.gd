@@ -14,7 +14,7 @@ func _process(delta):
 		if p.get_name() == "Probe": probe = p
 	
 	if probe != null:
-		#print(probe.get_grav().radians_orbited)
+		print(probe.get_grav().radians_orbited)
 		if probe.get_grav().orbiting != null: 
 			ship.set_pos(probe.get_pos())
 			ship.set_linear_velocity(probe.get_linear_velocity())

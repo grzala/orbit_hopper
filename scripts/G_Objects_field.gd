@@ -40,6 +40,10 @@ func process_gravity(delta):
 		var body1 = bodies[i]
 		var body2 = closest_body
 		
+		if body1.get_grav().calculating_orbit_for != body2: #different body is the closest body now
+			body1.get_grav().orbit_start_angle = null
+			body1.get_grav().radians_orbited = 0
+		
 		if dist > body2.get_grav().gravity_range: #not orbiting if out of range
 			body1.get_grav().orbiting = null
 			body1.get_grav().orbit_start_angle = null
