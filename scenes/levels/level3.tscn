@@ -30,7 +30,22 @@ transform/pos = Vector2( 220.37, 379.373 )
 
 [node name="Asteroid_Field" parent="Other_Bodies" instance=ExtResource( 3 )]
 
-transform/pos = Vector2( 639.72, 505.987 )
-transform/scale = Vector2( 3.31253, 7.17063 )
+transform/pos = Vector2( 640, 325 )
+transform/scale = Vector2( 2, 2 )
+
+[node name="Asteroid_Field1" parent="Other_Bodies" instance=ExtResource( 3 )]
+
+transform/pos = Vector2( 640, 450 )
+transform/scale = Vector2( 2, 2 )
+
+[node name="Asteroid_Field2" parent="Other_Bodies" instance=ExtResource( 3 )]
+
+transform/pos = Vector2( 640, 575 )
+transform/scale = Vector2( 2, 2 )
+
+[node name="Asteroid_Field3" parent="Other_Bodies" instance=ExtResource( 3 )]
+
+transform/pos = Vector2( 640, 700 )
+transform/scale = Vector2( 2, 2 )
 
 
