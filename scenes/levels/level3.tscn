@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=1]
+[gd_scene load_steps=5 format=1]
 
 [ext_resource path="res://scenes/levels/Level.scn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Celestial_Body.scn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/Asteroid_Field.scn" type="PackedScene" id=3]
-[ext_resource path="res://scenes/Asteroid_Field_Generator.tscn" type="PackedScene" id=4]
 
 [sub_resource type="GDScript" id=1]
 
@@ -52,10 +51,5 @@ transform/scale = Vector2( 2, 2 )
 
 transform/pos = Vector2( 0, 260 )
 transform/scale = Vector2( 2, 2 )
-
-[node name="Asteroid_Field_Generator" parent="Other_Bodies" instance=ExtResource( 4 )]
-
-transform/pos = Vector2( 404.083, 625.862 )
-transform/scale = Vector2( 2.28552, 2.87224 )
 
 

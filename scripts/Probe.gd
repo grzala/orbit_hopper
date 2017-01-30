@@ -1,6 +1,7 @@
 extends RigidBody2D
 
 onready var grav_body = find_node("Grav_Body")
+onready var thrust = find_node("Thrust")
 
 var acceleration = Vector2(0, 0)
 
@@ -31,15 +32,14 @@ func _integrate_forces(state):
 	acceleration = Vector2(0, 0)
 
 func _process(delta):
+	show_thrust(false)
 	if slowdown and tank > 0:
 		var power = 30
 		var angle = atan2(-get_linear_velocity().y, -get_linear_velocity().x)
 		var vec = polar(angle, power)
 		vec = vec * delta
 		if get_linear_velocity().length() > 10:
-			set_linear_velocity(get_linear_velocity() + vec)
-			tank -= vec.length()
-			unburn_time = 0
+			burn(vec)
 	else:
 		unburn_time += delta
 		if unburn_time >= time_to_regenerate:
@@ -54,6 +54,19 @@ func _process(delta):
 	for body in get_colliding_bodies():
 		if !body.has_method("get_grav") or body.get_grav().type != "ship":
 			die()
+			
+func burn(vec):
+	set_linear_velocity(get_linear_velocity() + vec)
+	tank -= vec.length()
+	unburn_time = 0
+	show_thrust(true)
+	
+func show_thrust(boolean):
+	for c in thrust.get_children():
+		if boolean:
+			c.show()
+		else:
+			c.hide()
 
 func accelerate(vec):
 	acceleration += vec
