@@ -99,6 +99,7 @@ func release():
 	probe.set_linear_velocity(vec)
 	probe.set_linear_velocity(probe.get_linear_velocity() + ship.get_linear_velocity())
 	probe.set_pos(ship.get_pos())
+	globals.current_probe = probe
 	
 	var field = get_node("/root/orbit_hopper/G_Objects_Field")
 	if old_probe != null: field.remove_child(old_probe)
