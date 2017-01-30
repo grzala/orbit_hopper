@@ -18,23 +18,23 @@ transform/pos = Vector2( 1102.44, 375.49 )
 
 [node name="Celestial_Body" parent="G_Objects_Field" instance=ExtResource( 2 )]
 
-transform/pos = Vector2( 1008.54, 378.106 )
+transform/pos = Vector2( 1000, 380 )
 
 [node name="Celestial_Body1" parent="G_Objects_Field" instance=ExtResource( 2 )]
 
-transform/pos = Vector2( 447.844, 506.424 )
+transform/pos = Vector2( 435, 450 )
 
 [node name="Celestial_Body2" parent="G_Objects_Field" instance=ExtResource( 2 )]
 
-transform/pos = Vector2( 766.181, 164.792 )
+transform/pos = Vector2( 716, 310 )
 
 [node name="Goal" parent="G_Objects_Field" instance=ExtResource( 2 )]
 
-transform/pos = Vector2( 174.472, 350.211 )
+transform/pos = Vector2( 150, 380 )
 
 [node name="Field1" type="Node2D" parent="Other_Bodies"]
 
-transform/pos = Vector2( 775.401, 487.684 )
+transform/pos = Vector2( 716, 650 )
 transform/scale = Vector2( 1.7, 1.7 )
 __meta__ = { "_edit_group_":true }
 
@@ -58,7 +58,7 @@ transform/pos = Vector2( 0, 130 )
 
 [node name="Field2" type="Node2D" parent="Other_Bodies"]
 
-transform/pos = Vector2( 453.917, 181.671 )
+transform/pos = Vector2( 435, 120 )
 transform/scale = Vector2( 1.7, 1.7 )
 __meta__ = { "_edit_group_":true }
 
