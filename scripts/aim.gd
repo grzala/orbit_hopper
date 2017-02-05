@@ -13,7 +13,7 @@ var grav_field
 var bodies
 
 var deltas = Array()
-var range_delta = 3
+var range_delta = 2
 var d = 0
 
 var last_scale = 0

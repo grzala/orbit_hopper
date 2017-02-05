@@ -6,7 +6,7 @@
 
 [sub_resource type="GDScript" id=1]
 
-script/source = "extends \"res://scenes/levels/level.gd\"\n\nfunc _ready():\n\tready(4)\n\t\n\tvar bodies = find_node(\"G_Objects_Field\").get_children()\n\tgoal = find_node(\"G_Objects_Field\").find_node(\"Goal\")\n\t\n\tbodies[1].set_sprite(\"tundra.png\")\n\tbodies[2].set_sprite(\"methane-barren.png\")\n\tbodies[3].set_sprite(\"desert.png\")\n\tbodies[4].set_sprite(\"tundra.png\")\n\t\n\tbodies[1].set_range(150.0)\n\tbodies[4].set_range(150.0)\n\t\n\tmake_orbit(bodies[0], bodies[1])\n\t\n\t\n\t\n\t"
+script/source = "extends \"res://scenes/levels/level.gd\"\n\nfunc _ready():\n\tready(4)\n\t\n\tvar bodies = find_node(\"G_Objects_Field\").get_children()\n\tgoal = find_node(\"G_Objects_Field\").find_node(\"Goal\")\n\t\n\tbodies[1].set_sprite(\"tundra.png\")\n\tbodies[2].set_sprite(\"methane-barren.png\")\n\tbodies[3].set_sprite(\"desert.png\")\n\tbodies[4].set_sprite(\"tundra.png\")\n\t\n\tbodies[1].set_range(150.0)\n\tbodies[4].set_range(150.0)\n\t\n\tmake_orbit(bodies[0], bodies[1])\n\t\n\tvar other = find_node(\"Other_Bodies\")\n\tvar field1 = other.get_child(0)\n\tfield1.get_child(0).set_type(2)\n\tfield1.get_child(1).set_type(5)\n\tfield1.get_child(2).set_type(1)\n\tfield1.get_child(3).set_type(2)\n\t\n\tvar field2 = other.get_child(1)\n\tfield2.get_child(0).set_type(5)\n\tfield2.get_child(1).set_type(4)\n\tfield2.get_child(2).set_type(2)\n\tfield2.get_child(3).set_type(4)\n\t\n\t\n\t\n\t"
 
 [node name="orbit_hopper" instance=ExtResource( 1 )]
 
@@ -52,19 +52,11 @@ transform/pos = Vector2( 0, -65 )
 
 transform/pos = Vector2( 0, 65 )
 
-[node name="Asteroid_Field4" parent="Other_Bodies/Field1" instance=ExtResource( 3 )]
-
-transform/pos = Vector2( 0, 130 )
-
 [node name="Field2" type="Node2D" parent="Other_Bodies"]
 
 transform/pos = Vector2( 435, 120 )
 transform/scale = Vector2( 1.7, 1.7 )
 __meta__ = { "_edit_group_":true }
-
-[node name="Asteroid_Field" parent="Other_Bodies/Field2" instance=ExtResource( 3 )]
-
-transform/pos = Vector2( 0, -130 )
 
 [node name="Asteroid_Field1" parent="Other_Bodies/Field2" instance=ExtResource( 3 )]
 
