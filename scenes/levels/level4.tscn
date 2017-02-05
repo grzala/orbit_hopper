@@ -6,7 +6,7 @@
 
 [sub_resource type="GDScript" id=1]
 
-script/source = "extends \"res://scenes/levels/level.gd\"\n\nfunc _ready():\n\tready(4)\n\t\n\tvar bodies = find_node(\"G_Objects_Field\").get_children()\n\tgoal = find_node(\"G_Objects_Field\").find_node(\"Goal\")\n\t\n\tbodies[1].set_sprite(\"tundra.png\")\n\tbodies[2].set_sprite(\"methane-barren.png\")\n\tbodies[3].set_sprite(\"desert.png\")\n\tbodies[4].set_sprite(\"tundra.png\")\n\t\n\tfor body in bodies:\n\t\tif body.has_method(\"set_range\"):\n\t\t\tbody.set_range(150.0)\n\t\n\tmake_orbit(bodies[0], bodies[1])\n\t\n\t\n\t\n\t"
+script/source = "extends \"res://scenes/levels/level.gd\"\n\nfunc _ready():\n\tready(4)\n\t\n\tvar bodies = find_node(\"G_Objects_Field\").get_children()\n\tgoal = find_node(\"G_Objects_Field\").find_node(\"Goal\")\n\t\n\tbodies[1].set_sprite(\"tundra.png\")\n\tbodies[2].set_sprite(\"methane-barren.png\")\n\tbodies[3].set_sprite(\"desert.png\")\n\tbodies[4].set_sprite(\"tundra.png\")\n\t\n\tbodies[1].set_range(150.0)\n\tbodies[4].set_range(150.0)\n\t\n\tmake_orbit(bodies[0], bodies[1])\n\t\n\t\n\t\n\t"
 
 [node name="orbit_hopper" instance=ExtResource( 1 )]
 
@@ -14,11 +14,11 @@ script/script = SubResource( 1 )
 
 [node name="Ship" parent="G_Objects_Field"]
 
-transform/pos = Vector2( 1102.44, 375.49 )
+transform/pos = Vector2( 1200, 375 )
 
 [node name="Celestial_Body" parent="G_Objects_Field" instance=ExtResource( 2 )]
 
-transform/pos = Vector2( 1000, 380 )
+transform/pos = Vector2( 1100, 380 )
 
 [node name="Celestial_Body1" parent="G_Objects_Field" instance=ExtResource( 2 )]
 
