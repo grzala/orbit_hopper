@@ -75,8 +75,8 @@ func simulate(bodies):
 			var body = bodies[j]
 			#if !body.get_grav().is_static(): body._process(0)
 			body._integrate_forces(null)
-			if !body.get_grav().is_static(): body.set_pos(body.get_pos() + (body.get_linear_velocity() * dd))
-				
+			#if !body.get_grav().is_static(): body.set_pos(body.get_pos() + (body.get_linear_velocity() * dd))
+			if !body.get_grav().is_static(): body._process(dd)
 		
 		ship_pos_array.push_back(bodies[0].get_pos())
 	return ship_pos_array
