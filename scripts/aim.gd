@@ -35,7 +35,7 @@ func sum(array):
 	return sum
 
 func _process(delta):
-	print("true delta: ", delta / OS.get_time_scale())
+	#print("true delta: ", delta / OS.get_time_scale())
 	deltas = Array()
 	if OS.get_time_scale() > 0:
 		
@@ -51,10 +51,10 @@ func simulate(bodies):
 	ship_pos_array.push_back(bodies[0].get_pos())
 	
 	var dd = d * range_delta
-	print("dd ", d)
+	#print("dd ", d)
 	#dd = 0.03 * range_delta ############################ debug
 	
-	for i in range(250): # for x deltas
+	for i in range(350): # for x deltas
 		#update bodies
 		for j in range(bodies.size()):
 			for k in range(j + 1, bodies.size()):
@@ -62,21 +62,21 @@ func simulate(bodies):
 				
 				var body1 = bodies[j]
 				var body2 = bodies[k]
-				
+				#if body1.get_grav().type == "ship" or body2.get_grav().type == "ship":
+					#print("simulatyed")
 				var impulse = grav_field.get_impulse(body1, body2)
 				
 				#print(body2.type) 
 				#acceleration simulate
-				if !body1.get_grav().is_static(): body1.set_linear_velocity(body1.get_linear_velocity() + (impulse[0] * dd))
-				if !body2.get_grav().is_static(): body2.set_linear_velocity(body2.get_linear_velocity() + (impulse[1] * dd))
+				body1.set_linear_velocity(body1.get_linear_velocity() + (impulse[0] * dd))
+				body2.set_linear_velocity(body2.get_linear_velocity() + (impulse[1] * dd))
 
 		#velocity update pos
 		for j in range(bodies.size()):
 			var body = bodies[j]
-			#if !body.get_grav().is_static(): body._process(0)
-			body._integrate_forces(null)
+			#body._integrate_forces(null)
 			if !body.get_grav().is_static(): body.set_pos(body.get_pos() + (body.get_linear_velocity() * dd))
-				
+			#if !body.get_grav().is_static(): body.update_pos(dd)
 		
 		ship_pos_array.push_back(bodies[0].get_pos())
 	return ship_pos_array
@@ -99,9 +99,8 @@ func _draw():
 			#initialize new probe
 			var probe = preload("res://scenes/Probe.scn").instance()
 			probe._ready()
-			probe.accelerate(vec)
 			probe.set_pos(ship_pos)
-			probe.set_linear_velocity(ship_vel + vec * d)
+			probe.set_linear_velocity(ship_vel + vec)
 			
 			bodies = duplicate_bodies(grav_field.get_children())
 			bodies.push_front(probe)

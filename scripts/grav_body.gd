@@ -28,7 +28,7 @@ func set_static(boolean):
 func set_tiny(boolean):
 	tiny = boolean
 	if boolean == true:
-		set_gmass(0)
+		set_gmass(1)
 
 func get_radius():
 	return radius

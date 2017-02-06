@@ -8,7 +8,7 @@ const MAXINT = 2147483647
 var last_dist = 0
 
 func _ready():
-	set_process(true)
+	set_fixed_process(true)
 	
 	bodies = get_children()
 	
@@ -19,7 +19,7 @@ func _ready():
 	#bodies[0].accelerate(Vector2(0, 200))
 	#bodies[2].get_grav().set_gmass(80)
 	
-func _process(delta):
+func _fixed_process(delta):
 	process_gravity(delta)
 
 func process_gravity(delta):
@@ -39,6 +39,7 @@ func process_gravity(delta):
 		
 		var body1 = bodies[i]
 		var body2 = closest_body
+		if body2 == null: return
 		
 		if body1.get_grav().calculating_orbit_for != body2: #different body is the closest body now
 			body1.get_grav().orbit_start_angle = null
@@ -86,13 +87,21 @@ func apply_gravities_multiple(bodies, delta):
 			
 			var impulse = get_impulse(body1, body2)
 			
-			body1.accelerate(impulse[0] * delta)
-			body2.accelerate(impulse[1] * delta)
+			#body1.accelerate(impulse[0] * delta)
+			#body2.accelerate(impulse[1] * delta)
+			
+			body1.set_linear_velocity(body1.get_linear_velocity() + (impulse[0] * delta))
+			body2.set_linear_velocity(body2.get_linear_velocity() + (impulse[1] * delta))
+			
 	
 
 func get_impulse(body1, body2):
 	var impulse1 = Vector2(0, 0)
 	var impulse2 = Vector2(0, 0)
+	
+	if (body1.get_grav().is_tiny() and body2.get_grav().is_tiny()) or \
+		(body1.get_grav().is_static() and body2.get_grav().is_static()):
+		return [impulse1, impulse2]
 	
 	var pos1 = body1.get_pos()
 	var pos2 = body2.get_pos()
@@ -101,6 +110,15 @@ func get_impulse(body1, body2):
 	
 	var angle = atan2(pos2.y - pos1.y, pos2.x - pos1.x)
 	var dist = pos1.distance_to(pos2)
+	
+	var orbiting_around = null
+	if m1 > m2:
+		orbiting_around = body1
+	else:
+		orbiting_around = body2
+	
+	if orbiting_around != null and dist > orbiting_around.get_grav().gravity_range:
+		return [impulse1, impulse2]
 	
 	var mm1 = m1
 	var mm2 = m2
@@ -116,18 +134,23 @@ func get_impulse(body1, body2):
 	if body2.get_grav().is_tiny() or m2 == 0:
 		mm2 = 1.0
 	
-	var gravity = G * ((mm1*mm2) / (dist*dist))
+	var m = max(m1, m2)
+	
+	var gravity = (G * m) / (dist*dist)
 	
 	var vec = polar(angle, gravity)
 	var rr = body1.get_grav().get_radius() + body2.get_grav().get_radius()
+	
+	#if body1.get_grav().type == "ship" or body2.get_grav().type == "ship":
+		#print(vec.length(), " " , dist)
 	
 	if dist > last_dist and last_dist < 160:
 		last_dist = dist
 		#print(last_dist)
 	
 	if true: #dist >= rr:
-		if !body1.get_grav().is_static() and !body2.get_grav().is_tiny() and dist <= body2.get_grav().get_range(): impulse1 = vec/mm1
-		if !body2.get_grav().is_static() and !body1.get_grav().is_tiny() and dist <= body1.get_grav().get_range(): impulse2 = -vec/mm2
+		if !body1.get_grav().is_static() and !body2.get_grav().is_tiny() and dist <= body2.get_grav().get_range(): impulse1 = vec
+		if !body2.get_grav().is_static() and !body1.get_grav().is_tiny() and dist <= body1.get_grav().get_range(): impulse2 = -vec
 		
 	
 	return [impulse1, impulse2]

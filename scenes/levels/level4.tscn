@@ -14,7 +14,7 @@ script/script = SubResource( 1 )
 
 [node name="Ship" parent="G_Objects_Field"]
 
-transform/pos = Vector2( 1200, 375 )
+transform/pos = Vector2( 1200, 380 )
 
 [node name="Celestial_Body" parent="G_Objects_Field" instance=ExtResource( 2 )]
 

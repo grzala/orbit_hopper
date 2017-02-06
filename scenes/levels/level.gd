@@ -5,7 +5,6 @@ var goal
 func ready(i):
 	set_process(true)
 	init_level(i)
-	
 
 func init_level(i):
 	globals.level_no = i
@@ -15,7 +14,7 @@ func make_orbit(body1, body2):
 	var G = find_node("G_Objects_Field").G
 	var vel = body1.get_grav().get_circular_orbit_velocity(G, body1, body2)
 	var angle = atan2(body2.get_pos().y - body1.get_pos().y, body2.get_pos().x - body1.get_pos().x)
-	angle = angle - PI/2.0 - 0.1
+	angle = angle - PI/2.0 
 	
 	body1.set_linear_velocity(polar(angle, vel))
 

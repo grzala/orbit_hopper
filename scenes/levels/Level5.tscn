@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=1]
+
+[ext_resource path="res://scenes/levels/Level.scn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/Celestial_Body.scn" type="PackedScene" id=2]
+
+[sub_resource type="GDScript" id=1]
+
+script/source = "extends \"res://scenes/levels/level.gd\"\n\nfunc _ready():\n\tready(5)\n\t\n\tvar bodies = find_node(\"G_Objects_Field\").get_children()\n\t\n\tmake_orbit(bodies[0], bodies[1])\n\t\n\t\n\t\n\t"
+
+[node name="orbit_hopper" instance=ExtResource( 1 )]
+
+script/script = SubResource( 1 )
+
+[node name="Celestial_Body" parent="G_Objects_Field" instance=ExtResource( 2 )]
+
+transform/pos = Vector2( 485.375, 262.214 )
+transform/scale = Vector2( 1, 1 )
+
+
