@@ -7,10 +7,10 @@ var pos1
 var pos2
 
 const MAX_POWER = 70
-const MIN_POWER = 0
+const MIN_POWER = 15
 var MAX_DIST = OS.get_window_size().width * 0.5 #60% of screen
 
-const MIN_TIME_SCAlE = 1
+const MIN_TIME_SCAlE = 0.000
 const TIME_SCALE_DELTA = 1
 
 var power
