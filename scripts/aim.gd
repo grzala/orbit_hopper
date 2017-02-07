@@ -13,7 +13,7 @@ var grav_field
 var bodies
 
 var deltas = Array()
-var range_delta = 1
+var range_delta = 10
 var d = 0
 
 var last_scale = 0
@@ -54,7 +54,7 @@ func simulate(bodies):
 	#print("dd ", d)
 	#dd = 0.03 * range_delta ############################ debug
 	
-	for i in range(450): # for x deltas
+	for i in range(100): # for x deltas
 		#update bodies
 		for j in range(bodies.size()):
 			for k in range(j + 1, bodies.size()):

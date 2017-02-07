@@ -47,7 +47,7 @@ func _process(delta):
 	if aiming:
 		if OS.get_time_scale() > MIN_TIME_SCAlE:
 			OS.set_time_scale(0.01 + OS.get_time_scale() - TIME_SCALE_DELTA * (delta / OS.get_time_scale()))
-		if OS.get_time_scale() < 0: OS.set_time_scale(0)
+		if OS.get_time_scale() < 0: OS.set_time_scale(0.001)
 	else:
 		if OS.get_time_scale() < 1:
 			OS.set_time_scale(0.01 + OS.get_time_scale() + TIME_SCALE_DELTA * (delta / OS.get_time_scale()))
