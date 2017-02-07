@@ -1,19 +1,55 @@
-[gd_scene load_steps=4 format=1]
+[gd_scene load_steps=5 format=1]
 
 [ext_resource path="res://scenes/levels/Level.scn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Celestial_Body.scn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/Asteroid.tscn" type="PackedScene" id=3]
 
 [sub_resource type="GDScript" id=1]
 
-script/source = "extends \"res://scenes/levels/level.gd\"\n\nfunc _ready():\n\tready(5)\n\t\n\tvar bodies = find_node(\"G_Objects_Field\").get_children()\n\t\n\tmake_orbit(bodies[0], bodies[1])\n\t\n\t\n\t\n\t"
+script/source = "extends \"res://scenes/levels/level.gd\"\n\nvar asteroids\n\nfunc _ready():\n\tready(5)\n\t\n\tvar bodies = find_node(\"G_Objects_Field\").get_children()\n\tgoal = find_node(\"G_Objects_Field\").find_node(\"Goal\")\n\t\n\tmake_orbit(bodies[0], bodies[1])\n\t\n\tvar asteroid = find_node(\"Asteroid\")\n\t\n\tvar other = find_node(\"Other_Bodies\")\n\t\n\tasteroids = Array()\n\tfor c in other.get_children():\n\t\tif c.get(\"dispatched\") != null: asteroids.push_back(c)\n\t\t\n\t\n\tfor i in range(asteroids.size()):\n\t\tvar a = asteroids[i]\n\t\ta.set_speed(300)\n\t\ta.set_goal(Vector2(a.get_pos().x, -10))\n\t\ta.dispatch()\n\nfunc custom_process(delta):\n\tvar dispatch_ready = true\n\tfor a in asteroids:\n\t\tif a.dispatched:\n\t\t\tdispatch_ready = false\n\t\t\tbreak\n\t\n\tif dispatch_ready:\n\t\tfor a in asteroids: a.dispatch()\n\t\n\t\n\t\n\t"
 
 [node name="orbit_hopper" instance=ExtResource( 1 )]
 
 script/script = SubResource( 1 )
 
+[node name="Ship" parent="G_Objects_Field"]
+
+transform/pos = Vector2( 1080, 400 )
+
 [node name="Celestial_Body" parent="G_Objects_Field" instance=ExtResource( 2 )]
 
-transform/pos = Vector2( 485.375, 262.214 )
-transform/scale = Vector2( 1, 1 )
+transform/pos = Vector2( 970, 400 )
+
+[node name="Goal" parent="G_Objects_Field" instance=ExtResource( 2 )]
+
+transform/pos = Vector2( 250, 400 )
+
+[node name="Asteroid1 2" parent="Other_Bodies" instance=ExtResource( 3 )]
+
+transform/pos = Vector2( 464.218, 915.961 )
+
+[node name="Asteroid2 2" parent="Other_Bodies" instance=ExtResource( 3 )]
+
+transform/pos = Vector2( 600, 820 )
+
+[node name="Asteroid3" parent="Other_Bodies" instance=ExtResource( 3 )]
+
+transform/pos = Vector2( 820.337, 856.691 )
+
+[node name="Asteroid4" parent="Other_Bodies" instance=ExtResource( 3 )]
+
+transform/pos = Vector2( 576.139, 1008.93 )
+
+[node name="Asteroid5" parent="Other_Bodies" instance=ExtResource( 3 )]
+
+transform/pos = Vector2( 719.288, 911.584 )
+
+[node name="Asteroid6" parent="Other_Bodies" instance=ExtResource( 3 )]
+
+transform/pos = Vector2( 501.978, 1087.15 )
+
+[node name="Asteroid7" parent="Other_Bodies" instance=ExtResource( 3 )]
+
+transform/pos = Vector2( 789.269, 1090.83 )
 
 

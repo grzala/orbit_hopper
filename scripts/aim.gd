@@ -41,22 +41,20 @@ func _process(delta):
 		delta = delta / (OS.get_time_scale());
 		deltas.push_back(delta)
 		if (deltas.size() > 20): deltas.remove(0)
-		if (deltas.size() > 0): d = sum(deltas)/deltas.size()
+	
+	if (deltas.size() > 0): d = sum(deltas)/deltas.size()
 
 	update()
-	print("delta ", delta)
 	
 func simulate(bodies):
 	var ship_pos_array = Array()
 	ship_pos_array.push_back(bodies[0].get_pos())
 	
 	var dd = d * range_delta
-	print(deltas.size())
-	print("Dd ", dd)
 	#print("dd ", d)
 	#dd = 0.03 * range_delta ############################ debug
 	
-	for i in range(350): # for x deltas
+	for i in range(450): # for x deltas
 		#update bodies
 		for j in range(bodies.size()):
 			for k in range(j + 1, bodies.size()):

@@ -44,6 +44,8 @@ func _process(delta):
 			
 	if ship != null and ship.get_grav().orbiting == goal:
 		complete()
+		
+	if has_method("custom_process"): custom_process(delta)
 
 
 func complete():
