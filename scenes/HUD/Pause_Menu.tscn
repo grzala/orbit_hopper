@@ -42,7 +42,7 @@ toggle_mode = false
 text = "Retry"
 flat = false
 
-[node name="Quit" type="Button" parent="."]
+[node name="Return" type="Button" parent="."]
 
 anchor/left = 3
 anchor/right = 3
@@ -55,12 +55,30 @@ focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 toggle_mode = false
+text = "Return to main Menu"
+flat = false
+
+[node name="Quit" type="Button" parent="."]
+
+anchor/left = 3
+anchor/right = 3
+margin/left = 100.0
+margin/top = 500.0
+margin/right = -100.0
+margin/bottom = 600.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+toggle_mode = false
 text = "Quit"
 flat = false
 
 [connection signal="pressed" from="Resume" to="." method="_on_Resume_pressed"]
 
 [connection signal="pressed" from="Reset" to="." method="_on_Reset_pressed"]
+
+[connection signal="pressed" from="Return" to="." method="_on_Return_pressed"]
 
 [connection signal="pressed" from="Quit" to="." method="_on_Quit_pressed"]
 

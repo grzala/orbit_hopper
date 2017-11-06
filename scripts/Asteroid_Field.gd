@@ -8,7 +8,9 @@ const h = 65
 
 func _ready():
 	set_type(1)
-	remove_child(find_node("Placeholder"))
+	var plac = find_node("Placeholder")
+	if (plac):
+		remove_child(plac)
 
 func set_type(type):
 	remove_child(get_child(get_child_count()-1))
