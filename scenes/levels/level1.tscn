@@ -13,14 +13,15 @@ script/script = SubResource( 1 )
 
 [node name="Ship" parent="G_Objects_Field"]
 
-transform/pos = Vector2( 1075.82, 380 )
+transform/pos = Vector2( 1064.72, 454.025 )
 
 [node name="Celestial_Body" parent="G_Objects_Field" instance=ExtResource( 2 )]
 
-transform/pos = Vector2( 943.596, 380 )
+transform/pos = Vector2( 932.492, 454.025 )
 
 [node name="Goal" parent="G_Objects_Field" instance=ExtResource( 2 )]
 
-transform/pos = Vector2( 330, 380 )
+transform/pos = Vector2( 280.033, 291.17 )
 
 
+[editable path="ParallaxBackground"]
