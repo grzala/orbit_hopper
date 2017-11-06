@@ -71,3 +71,6 @@ func set_random_asteroid_image():
 
 func polar(angle, radius):
 	return Vector2(radius * cos(angle), radius * sin(angle))
+
+func _on_ExitButton_pressed():
+	pass # replace with function body
