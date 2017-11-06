@@ -1,10 +1,13 @@
 extends Node2D
 
 var goal
+var hud
 
 func ready(i):
 	set_process(true)
 	init_level(i)
+	hud = find_node("HUD")
+	hud.set_level(i)
 
 func init_level(i):
 	globals.level_no = i

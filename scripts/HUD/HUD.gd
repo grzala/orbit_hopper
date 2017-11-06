@@ -3,6 +3,7 @@ extends CanvasLayer
 var action = null
 
 onready var fuel_label = find_node("Label")
+onready var level_label = find_node("Level Label")
 const s1 = "Probe fuel:\n"
 const s2 = "%"
 
@@ -44,3 +45,6 @@ func _on_Pause_pressed():
 	else:
 		pmenu.resume()
 		action = "resume"
+
+func set_level(i):
+	level_label.set_text("Level: " + str(i))
