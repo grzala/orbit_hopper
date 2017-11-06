@@ -52,4 +52,33 @@ transform/pos = Vector2( 501.978, 1087.15 )
 
 transform/pos = Vector2( 789.269, 1090.83 )
 
+[node name="Asteroid13" parent="Other_Bodies" instance=ExtResource( 3 )]
 
+transform/pos = Vector2( 477.822, 1211.36 )
+
+[node name="Asteroid23" parent="Other_Bodies" instance=ExtResource( 3 )]
+
+transform/pos = Vector2( 613.604, 1115.4 )
+
+[node name="Asteroid8" parent="Other_Bodies" instance=ExtResource( 3 )]
+
+transform/pos = Vector2( 833.941, 1152.09 )
+
+[node name="Asteroid9" parent="Other_Bodies" instance=ExtResource( 3 )]
+
+transform/pos = Vector2( 589.743, 1304.33 )
+
+[node name="Asteroid10" parent="Other_Bodies" instance=ExtResource( 3 )]
+
+transform/pos = Vector2( 732.892, 1206.99 )
+
+[node name="Asteroid11" parent="Other_Bodies" instance=ExtResource( 3 )]
+
+transform/pos = Vector2( 515.582, 1382.55 )
+
+[node name="Asteroid12" parent="Other_Bodies" instance=ExtResource( 3 )]
+
+transform/pos = Vector2( 802.873, 1386.23 )
+
+
+[editable path="ParallaxBackground"]

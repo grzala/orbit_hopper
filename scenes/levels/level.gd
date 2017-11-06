@@ -55,7 +55,7 @@ func complete():
 	if (globals.level_no < globals.max_level):
 		get_tree().change_scene("res://scenes/levels/level" + str(globals.level_no+1) + ".tscn")
 	else:
-		get_tree().change_scene("res://scenes/finish.tscn")
+		get_tree().change_scene("res://scenes/finish.scn")
 
 func reset():
 	get_tree().change_scene("res://scenes/levels/level" + str(globals.level_no) + ".tscn")
