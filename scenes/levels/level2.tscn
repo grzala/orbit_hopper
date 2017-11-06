@@ -5,7 +5,7 @@
 
 [sub_resource type="GDScript" id=1]
 
-script/source = "extends \"res://scenes/levels/level.gd\"\n\nfunc _ready():\n\tready(2)\n\t\n\tvar bodies = find_node(\"G_Objects_Field\").get_children()\t\n\tgoal = find_node(\"G_Objects_Field\").find_node(\"Goal\")\n\t\n\tbodies[1].set_sprite(\"barren-icy.png\")\n\tbodies[2].set_sprite(\"chlorine.png\")\n\tbodies[3].set_sprite(\"inferno.png\")\n\tbodies[4].set_sprite(\"methane-ice.png\")\n\t\n\tmake_orbit(bodies[0], bodies[1])"
+script/source = "extends \"res://scenes/levels/level.gd\"\n\nfunc _ready():\n\tready(2)\n\t\n\tvar bodies = find_node(\"G_Objects_Field\").get_children()\t\n\tgoal = find_node(\"G_Objects_Field\").find_node(\"Goal\")\n\t\n\tbodies[1].set_sprite(\"barren-icy.png\")\n\tbodies[2].set_sprite(\"chlorine.png\")\n\tbodies[3].set_sprite(\"inferno.png\")\n\t\n\tmake_orbit(bodies[0], bodies[1])"
 
 [node name="orbit_hopper" instance=ExtResource( 1 )]
 
@@ -13,22 +13,19 @@ script/script = SubResource( 1 )
 
 [node name="Ship" parent="G_Objects_Field"]
 
-transform/pos = Vector2( 1184.43, 658.833 )
+transform/pos = Vector2( 1138.18, 530.958 )
 
 [node name="Celestial_Body" parent="G_Objects_Field" instance=ExtResource( 2 )]
 
-transform/pos = Vector2( 1047.6, 658.708 )
+transform/pos = Vector2( 1001.35, 530.833 )
 
 [node name="Celestial_Body1" parent="G_Objects_Field" instance=ExtResource( 2 )]
 
-transform/pos = Vector2( 296.946, 642.127 )
-
-[node name="Celestial_Body2" parent="G_Objects_Field" instance=ExtResource( 2 )]
-
-transform/pos = Vector2( 928.522, 164.3 )
+transform/pos = Vector2( 590.787, 364.611 )
 
 [node name="Goal" parent="G_Objects_Field" instance=ExtResource( 2 )]
 
-transform/pos = Vector2( 312.02, 156.763 )
+transform/pos = Vector2( 222.235, 151.321 )
 
 
+[editable path="ParallaxBackground"]
