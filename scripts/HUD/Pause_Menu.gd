@@ -21,3 +21,7 @@ func _on_Resume_pressed():
 func _on_Reset_pressed():
 	resume()
 	globals.current_level.reset()
+
+
+func _on_Quit_pressed():
+	get_tree().quit()
