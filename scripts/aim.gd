@@ -54,7 +54,7 @@ func simulate(bodies):
 	#print("dd ", d)
 	#dd = 0.03 * range_delta ############################ debug
 	
-	for i in range(200): # for x deltas
+	for i in range(130): # for x deltas
 		#update bodies
 		for j in range(bodies.size()):
 			for k in range(j + 1, bodies.size()):
