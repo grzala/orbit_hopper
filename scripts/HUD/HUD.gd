@@ -19,7 +19,8 @@ func _process(delta):
 
 func update_fuel():
 	var percent = ""
-	if globals.current_probe == null or globals.current_probe.get("tank") == null:
+	if true:
+	#if globals.current_probe == null or globals.current_probe.get("tank") == null:
 		percent = "100"
 	else:
 		percent = (globals.current_probe.tank / globals.current_probe.max_tank) * 100

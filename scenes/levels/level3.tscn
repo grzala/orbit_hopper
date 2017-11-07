@@ -53,3 +53,4 @@ transform/pos = Vector2( 0, 260 )
 transform/scale = Vector2( 2, 2 )
 
 
+[editable path="ParallaxBackground"]

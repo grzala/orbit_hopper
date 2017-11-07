@@ -14,6 +14,6 @@ func _on_ExitButton_pressed():
 
 
 func _on_SpecialButton_pressed():
-	#get_tree().change_scene("res://scenes/levels/level5.tscn")
-	get_tree().change_scene("res://scenes/finish.scn")
+	get_tree().change_scene("res://scenes/levels/level5.tscn")
+	#get_tree().change_scene("res://scenes/finish.scn")
 	

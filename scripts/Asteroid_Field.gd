@@ -13,7 +13,8 @@ func _ready():
 		remove_child(plac)
 
 func set_type(type):
-	remove_child(get_child(get_child_count()-1))
+	var c = get_child(get_child_count()-1)
+	if (c): remove_child(c)
 	var s = Sprite.new()
 	var path = "res://sprites/asteroids/asteroids" + str(type) + ".png"
 	var texture = load(path)
